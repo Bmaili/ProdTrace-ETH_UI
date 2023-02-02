@@ -104,10 +104,19 @@ const user = {
         // 退出系统
         LogOut({commit, state}) {
             return new Promise((resolve, reject) => {
-                logout(state.token).then(() => {
+                logout().then(() => {
                     commit('SET_TOKEN', '')
+                    commit('SET_USERID', '')
+                    commit('SET_NAME', '')
                     commit('SET_ROLE', '')
-                    commit('SET_PERMISSIONS', [])
+                    commit('SET_PHONE','')
+                    commit('SET_SEX', '')
+                    commit('SET_EMAIL','')
+                    commit('SET_CHINESEID', '')
+                    commit('SET_DEPTID', '')
+                    commit('SET_DEPTNAME', '')
+                    commit('SET_AVATAR', '')
+                    commit('SET_CREATTIME','')
                     removeToken()
                     resolve()
                 }).catch(error => {

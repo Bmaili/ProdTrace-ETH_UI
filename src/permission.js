@@ -6,6 +6,7 @@ import 'nprogress/nprogress.css'
 import {getToken} from '@/utils/auth'
 import {updateRotes} from "@/router/config";
 import Layout from "@/layout/index.vue";
+import user from "@/store/modules/user";
 
 NProgress.configure({showSpinner: false})
 
@@ -28,7 +29,7 @@ router.beforeEach((to, from, next) => {
             if (store.getters.role === '') {
                 // 判断当前用户是否已拉取完user_info信息
                 store.dispatch('GetInfo').then(res => {
-                    updateRotes()
+                    updateRotes(user.state.role)
 
                     next({...to, replace: true}) // hack方法 确保addRoutes已完成
                 })

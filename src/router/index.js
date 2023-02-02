@@ -26,9 +26,15 @@ export const constantRoutes = [
             {
                 path: 'deptInfo',
                 component: () => import('@/views/deptInfo'),
-                name: '企业详情',
-                meta: {title: '企业详情', icon: 'dashboard', noCache: true, affix: true}
+                name: '所属企业',
+                meta: {title: '所属企业', icon: 'dashboard', noCache: true, affix: true}
             },
+            {
+                path: 'order',
+                name: '上传示例',
+                component: () => import('@/views/order'),
+                meta: {title: '上传示例', icon: 'dashboard', noCache: true, affix: true}
+            }
         ]
     },
     {
@@ -36,8 +42,8 @@ export const constantRoutes = [
         component: () => import('@/views/login'),
     },
     {
-      path: '/404',
-      component: () => import('@/views/error/404'),
+        path: '/404',
+        component: () => import('@/views/error/404'),
     },
     // 所有未定义路由，全部重定向到404页
     // {
@@ -45,8 +51,8 @@ export const constantRoutes = [
     //     redirect: '/404'
     // },
     {
-      path: '/401',
-      component: () => import('@/views/error/401'),
+        path: '/401',
+        component: () => import('@/views/error/401'),
     },
 
 

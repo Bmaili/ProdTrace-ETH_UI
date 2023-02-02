@@ -1,6 +1,6 @@
 import request from '@/utils/request'
 
-//上传部门图片资料
+//上传企业图片资料
 export function upPic(data){
     return request({
         url: '/dept/upPic',
@@ -12,7 +12,7 @@ export function upPic(data){
     })
 }
 
-// 查询部门列表
+// 查询企业完整信息列表
 export function listDept(query) {
     return request({
         url: '/dept/list',
@@ -21,7 +21,7 @@ export function listDept(query) {
     })
 }
 
-// 查询部门详细
+// 查询企业详细
 export function getDept(deptId) {
     return request({
         url: '/dept',
@@ -30,7 +30,7 @@ export function getDept(deptId) {
     })
 }
 
-// 查询部门下拉树结构
+// 查询企业下拉树结构
 export function treeselect() {
     return request({
         url: '/dept/treeselect',
@@ -38,14 +38,16 @@ export function treeselect() {
     })
 }
 
-export function listselect() {
+//查询企业选项列表
+export function getOptionsList(query) {
     return request({
-        url: '/dept/listselect',
-        method: 'get'
+        url: '/dept/options',
+        method: 'get',
+        params: query
     })
 }
 
-// 根据角色ID查询部门树结构
+// 根据角色ID查询企业树结构
 // export function roleDeptTreeselect(roleId) {
 //     return request({
 //         url: '/system/dept/roleDeptTreeselect/' + roleId,
@@ -53,7 +55,7 @@ export function listselect() {
 //     })
 // }
 
-// 新增部门
+// 新增企业
 export function addDept(data) {
     return request({
         url: '/dept',
@@ -62,7 +64,7 @@ export function addDept(data) {
     })
 }
 
-// 修改部门
+// 修改企业
 export function updateDept(data) {
     return request({
         url: '/dept',
@@ -71,7 +73,7 @@ export function updateDept(data) {
     })
 }
 
-// 删除部门
+// 删除企业
 export function delDept(deptId) {
     return request({
         url: '/dept',

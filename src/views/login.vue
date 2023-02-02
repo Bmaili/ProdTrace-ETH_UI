@@ -64,8 +64,6 @@
 <script>
 import { getCodeImg } from "@/api/login";
 import Cookies from "js-cookie";
-import {updateRotes} from "@/router/config";
-import store from "@/store";
 
 export default {
   name: "login",

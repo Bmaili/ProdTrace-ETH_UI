@@ -50,7 +50,7 @@
               />
             </el-select>
           </el-form-item>
-          <el-form-item label="创建时间">
+          <el-form-item label="更新时间">
             <el-date-picker
                 @input="handleDate"
                 v-model="dateRange"
@@ -81,7 +81,7 @@
           <el-table-column label="地址" align="center" prop="address" width="180" show-overflow-tooltip/>
           <el-table-column label="联系人" align="center" prop="linkman" width="100"/>
           <el-table-column label="联系电话" align="center" prop="linkphone" width="120" show-overflow-tooltip/>
-          <el-table-column label="创建时间" align="center" prop="createTime" width="160">
+          <el-table-column label="更新时间" align="center" prop="createTime" width="160">
             <template slot-scope="scope">
               <span>{{ dateFormat(scope.row.createTime) }}</span>
             </template>

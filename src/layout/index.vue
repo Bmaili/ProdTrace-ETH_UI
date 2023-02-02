@@ -1,20 +1,3 @@
-<!--<template>-->
-<!--  <el-container>-->
-<!--    &lt;!&ndash; header部分 &ndash;&gt;-->
-<!--    <el-header>-->
-<!--      <Navbar></Navbar>-->
-<!--    </el-header>-->
-<!--    <el-container>-->
-<!--      &lt;!&ndash; aside部分 &ndash;&gt;-->
-<!--      <Sidebar></Sidebar>-->
-<!--      <el-main>-->
-<!--        &lt;!&ndash; main部分 &ndash;&gt;-->
-<!--        <router-view/>-->
-<!--      </el-main>-->
-<!--    </el-container>-->
-<!--  </el-container>-->
-<!--</template>-->
-
 <template>
   <el-container>
     <Sidebar></Sidebar>

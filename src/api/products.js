@@ -21,3 +21,30 @@ export function changeProdStatus(prodId, status) {
         data: data
     })
 }
+
+// 新增产品
+export function addProd(data) {
+    return request({
+        url: '/prod',
+        method: 'post',
+        data: data
+    })
+}
+
+// 修改产品
+export function updateProd(data) {
+    return request({
+        url: '/prod',
+        method: 'put',
+        data: data
+    })
+}
+
+// 查询产品详细
+export function getProd(prodId) {
+    return request({
+        url: '/prod',
+        method: 'get',
+        params: {prodId}
+    })
+}

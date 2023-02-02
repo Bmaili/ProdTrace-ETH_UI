@@ -41,8 +41,10 @@ import {mapGetters} from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb/index.vue'
 import Screenfull from '@/components/Screenfull'
 import GQ_ETH from "@/components/GQ_ETH/index.vue";
+import {logout, getInfo} from "@/api/login";
+import {getToken, setToken, removeToken} from '@/utils/auth'
 
-// import SizeSelect from '@/components/SizeSelect'
+import store from "@/store";
 
 export default {
   name: "Navbar",
@@ -65,9 +67,20 @@ export default {
     handleSelect(key, keyPath) {
       console.log(key, keyPath);
     },
-    logout({commit, state}) {
-      console.log();
-    },
+    async logout() {
+      this.$confirm('确定注销并退出系统吗？', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$store.dispatch('LogOut').then(() => {
+          location.reload()
+        })
+      })
+    }
+
+
+
   }
 };
 </script>

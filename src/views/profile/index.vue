@@ -25,7 +25,7 @@
               </li>
               <li class="list-group-item">
                 <i class="el-icon-office-building"></i>所属企业
-                <a style="float: right !important; font-size: 1px ;color: dodgerblue" href="/index">{{
+                <a style="float: right !important; font-size: 1px ;color: dodgerblue" href="/deptInfo">{{
                     user.deptName
                   }}</a>
               </li>

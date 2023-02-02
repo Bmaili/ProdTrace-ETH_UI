@@ -10,37 +10,37 @@
           <i class="el-icon-menu"></i>
           <span slot="title">首页</span>
         </el-menu-item>
-        <el-menu-item index="3" @click="goPage('operator')">
+        <el-menu-item  v-if="role==='0'" index="1" @click="goPage('operator')">
           <i class="el-icon-user-solid"></i>
           <span slot="title">操作员管理</span>
         </el-menu-item>
-        <el-menu-item index="6" @click="goPage('dept')">
+        <el-menu-item  v-if="role==='0'" index="2" @click="goPage('dept')">
           <i class="el-icon-s-home"></i>
           <span slot="title">企业管理</span>
         </el-menu-item>
-        <el-menu-item index="4" @click="goPage('product')">
+        <el-menu-item  v-if="role==='0'" index="3" @click="goPage('product')">
           <i class="el-icon-s-goods"></i>
           <span slot="title">产品管理</span>
         </el-menu-item>
-        <el-menu-item index="7" @click="goPage('deptInfo')">
+        <el-menu-item  index="4" @click="goPage('deptInfo')">
           <i class="el-icon-s-home"></i>
-          <span slot="title">企业详情</span>
+          <span slot="title">所属企业</span>
         </el-menu-item>
-        <el-menu-item  index="2" @click="goPage('order')">
+        <el-menu-item  index="99" @click="goPage('order')">
           <i class="el-icon-s-order"></i>
-          <span slot="title">订单列表</span>
+          <span slot="title">文件上传</span>
         </el-menu-item>
-        <el-menu-item  index="8" @click="goPage('profile')">
-          <i class="el-icon-s-order"></i>
-          <span slot="title">个人</span>
-        </el-menu-item>
-        <el-menu-item index="10" @click="goPage('logininfor')">
+        <el-menu-item v-if="role==='0'" index="5" @click="goPage('logininfor')">
           <i class="el-icon-s-promotion"></i>
           <span slot="title">登录日志</span>
         </el-menu-item>
-        <el-menu-item v-if="role==='0'" index="11" @click="goPage('operlog')">
+        <el-menu-item v-if="role==='0'" index="6" @click="goPage('operlog')">
           <i class="el-icon-s-promotion"></i>
           <span slot="title">操作日志</span>
+        </el-menu-item>
+        <el-menu-item v-if="role==='1'" index="10" @click="goPage('batch/create')">
+          <i class="el-icon-s-promotion"></i>
+          <span slot="title">产品生产</span>
         </el-menu-item>
       </el-menu>
     </el-scrollbar>
