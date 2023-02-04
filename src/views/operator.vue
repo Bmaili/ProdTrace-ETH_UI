@@ -204,7 +204,7 @@
           </el-col>
           <el-col :span="12">
             <el-form-item label="角色" prop="role">
-              <el-select v-model="form.role" placeholder="请选择">
+              <el-select v-model="form.role" placeholder="请选择" @change="getListselectByRole">
                 <el-option
                     v-for="dict in roleOptions"
                     :key="dict.dictValue"
@@ -305,6 +305,12 @@ export default {
         deptId: [
           {required: true, message: "归属部门不能为空", trigger: "blur"}
         ],
+        role: [
+          {required: true, message: "角色不能为空", trigger: "blur"}
+        ],
+        sex: [
+          {required: true, message: "性别不能为空", trigger: "blur"}
+        ],
         email: [
           {
             required: true,
@@ -335,9 +341,15 @@ export default {
   created() {
     this.getList();
     this.getTreeselect();
-    this.getListselect();
+    // this.getListselect();
   },
   methods: {
+    // 根据角色查询部门选项
+    getListselectByRole(value) {
+      getOptionsList({role:value}).then(res => {
+        this.deptOptions = res.data
+      })
+    },
     // 查询部门选项
     getListselect() {
       getOptionsList({}).then(res => {
