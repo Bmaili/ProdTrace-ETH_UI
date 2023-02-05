@@ -30,6 +30,12 @@ export const constantRoutes = [
                 meta: {title: '所属企业', icon: 'dashboard', noCache: true, affix: true}
             },
             {
+                path: 'flow',
+                component: () => import('@/views/flow'),
+                name: '批次流程',
+                meta: {title: '批次流程', icon: 'dashboard', noCache: true, affix: true}
+            },
+            {
                 path: 'order',
                 name: '上传示例',
                 component: () => import('@/views/order'),

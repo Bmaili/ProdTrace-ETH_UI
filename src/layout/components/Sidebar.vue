@@ -26,6 +26,10 @@
           <i class="el-icon-s-home"></i>
           <span slot="title">所属企业</span>
         </el-menu-item>
+        <el-menu-item  index="5" @click="goPage('flow')">
+          <i class="el-icon-s-home"></i>
+          <span slot="title">批次流程</span>
+        </el-menu-item>
         <el-menu-item  index="99" @click="goPage('order')">
           <i class="el-icon-s-order"></i>
           <span slot="title">文件上传</span>
