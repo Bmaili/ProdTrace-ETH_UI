@@ -46,6 +46,18 @@
           <i class="el-icon-s-promotion"></i>
           <span slot="title">产品生产</span>
         </el-menu-item>
+        <el-menu-item v-if="role==='2'" index="10" @click="goPage('batch/process')">
+          <i class="el-icon-s-promotion"></i>
+          <span slot="title">产品加工</span>
+        </el-menu-item>
+        <el-menu-item v-if="role==='3'" index="10" @click="goPage('batch/transport')">
+          <i class="el-icon-s-promotion"></i>
+          <span slot="title">物流运输</span>
+        </el-menu-item>
+        <el-menu-item v-if="role==='4'" index="10" @click="goPage('batch/sale')">
+          <i class="el-icon-s-promotion"></i>
+          <span slot="title">产品销售</span>
+        </el-menu-item>
       </el-menu>
     </el-scrollbar>
   </div>

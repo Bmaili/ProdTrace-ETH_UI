@@ -54,10 +54,43 @@ export function updateRotes(role) {
                 }]
             })
     } else if (role === '2') {
-
+        router.addRoute(
+            {
+                path: '',
+                component: Layout,
+                redirect: 'index',
+                children: [{
+                    path: 'batch/process',
+                    name: '产品加工',
+                    component: () => import('@/views/batch/process.vue'),
+                    meta: {title: '产品加工', icon: 'dashboard', noCache: true, affix: true}
+                }]
+            })
     } else if (role === '3') {
-
+        router.addRoute(
+            {
+                path: '',
+                component: Layout,
+                redirect: 'index',
+                children: [{
+                    path: 'batch/transport',
+                    name: '物流运输',
+                    component: () => import('@/views/batch/transport.vue'),
+                    meta: {title: '物流运输', icon: 'dashboard', noCache: true, affix: true}
+                }]
+            })
     } else if (role === '4') {
-
+        router.addRoute(
+            {
+                path: '',
+                component: Layout,
+                redirect: 'index',
+                children: [{
+                    path: 'batch/sale',
+                    name: '产品销售',
+                    component: () => import('@/views/batch/sale.vue'),
+                    meta: {title: '产品销售', icon: 'dashboard', noCache: true, affix: true}
+                }]
+            })
     }
 }

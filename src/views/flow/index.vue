@@ -35,7 +35,7 @@ export default {
   },
   created() {
     this.compoList = ["1", "2", "1"];
-    this.dataInfo=[{name:"周杰伦",phone:"18778324978",jzd:"广西桂林",notes:"学校",address:"广西省桂林市恭城瑶族自治区西岭想"},{}]
+    this.dataInfo=[{名字:"周杰伦",phone:"18778324978",jzd:"广西桂林",notes:"学校",address:"广西省桂林市恭城瑶族自治区西岭想"},{}]
   }
 }
 </script>

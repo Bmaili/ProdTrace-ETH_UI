@@ -19,9 +19,33 @@ export function getFlow(flowId) {
 }
 
 // 新增生产者流程
-export function addCreaterFlow(data) {
+export function addCreateFlow(data) {
     return request({
-        url: '/createrFlow',
+        url: '/createFlow',
+        method: 'post',
+        data: data
+    })
+}
+
+export function addProcessFlow(data) {
+    return request({
+        url: '/processFlow',
+        method: 'post',
+        data: data
+    })
+}
+
+export function addTransportFlow(data) {
+    return request({
+        url: '/transportFlow',
+        method: 'post',
+        data: data
+    })
+}
+
+export function addSaleFlow(data) {
+    return request({
+        url: '/saleFlow',
         method: 'post',
         data: data
     })

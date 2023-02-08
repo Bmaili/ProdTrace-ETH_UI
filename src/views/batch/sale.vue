@@ -62,13 +62,6 @@
       </el-form-item>
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
-        <el-button
-            type="primary"
-            icon="el-icon-plus"
-            size="mini"
-            @click="handleAdd"
-        >新增批次
-        </el-button>
       </el-form-item>
     </el-form>
 
@@ -97,6 +90,13 @@
               @click=""
           >查看
           </el-button>
+          <el-button
+              size="mini"
+              type="text"
+              icon="el-icon-edit"
+              @click="handleAdd(scope.row)"
+          >运输
+          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -114,39 +114,12 @@
       <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-row>
           <el-col :span="12">
-            <el-form-item label="选择产品" prop="prodId">
-              <el-select v-model="form.prodId" placeholder="请选择新增批次的产品" @change="selectProduct">
-                <el-option
-                    v-for="dict in productOptions"
-                    :key="dict.dictValue"
-                    :label="dict.dictLabel"
-                    :value="dict.dictValue"
-                ></el-option>
-              </el-select>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="产品编号" prop="prodId">
-              <el-input v-model="form.prodId" disabled/>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="产品名称" prop="prodName">
-              <el-input v-model="form.prodName" disabled/>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="产品类别" prop="category">
-              <el-input v-model="categoryOptions[Number(form.category)].dictLabel" disabled/>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="厂商编号" prop="deptName">
+            <el-form-item label="销售端编号" prop="deptName">
               <el-input v-model="form.deptId" disabled/>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="生产商" prop="deptName">
+            <el-form-item label="销售端名称" prop="deptName">
               <el-input v-model="form.deptName" disabled/>
             </el-form-item>
           </el-col>
@@ -166,28 +139,13 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="计算单位" prop="unit">
-              <el-input v-model="form.unit" disabled/>
+            <el-form-item label="登记时间" prop="phone">
+              <el-input v-model="form.phone" disabled/>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="数量" prop="num">
-              <el-input v-model="form.num" placeholder="请输入数量" maxlength="11"/>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="保质期" prop="quality">
-              <el-input v-model="form.quality" placeholder="请输入保质期" maxlength="11"/>
-            </el-form-item>
-          </el-col>
-          <el-col :span="24">
-            <el-form-item label="源产地" prop="origin">
-              <el-input v-model="form.origin" placeholder="请输入源产地" maxlength="11"/>
-            </el-form-item>
-          </el-col>
-          <el-col :span="24">
-            <el-form-item label="备注">
-              <el-input v-model="form.notes" type="textarea" placeholder="请输入内容"></el-input>
+            <el-form-item label="报价" prop="phone">
+              <el-input v-model="form.price"/>
             </el-form-item>
           </el-col>
         </el-row>
@@ -202,9 +160,8 @@
 
 <script>
 import {listBatch} from "@/api/batch";
-import {addCreateFlow} from "@/api/flow";
+import {addSaleFlow} from "@/api/flow";
 import user from "@/store/modules/user";
-import {listProd} from "@/api/products";
 
 export default {
   data() {
@@ -223,33 +180,23 @@ export default {
       openDataScope: false,
       // 日期范围
       dateRange: [],
-      // 可生产产品列表选项
-      productOptions: [],
-      // 可生产产品列表
-      productList: [],
       // 最新状态数据字典
       statusOptions: [{dictLabel: "刚生产", dictValue: "0"}, {
         dictLabel: "供应链中",
         dictValue: "1"
       }, {dictLabel: "在售", dictValue: "2"}],
-      // 产品类别数据字典
-      categoryOptions: [
-        {dictLabel: "其它", dictValue: "0"}, {dictLabel: "食品", dictValue: "1"}, {dictLabel: "家电", dictValue: "2"},
-        {dictLabel: "电子用品", dictValue: "3"}, {dictLabel: "宠物用品", dictValue: "4"},
-        {dictLabel: "玩具，游戏", dictValue: "5"}, {dictLabel: "运动，户外用品", dictValue: "6"},
-        {dictLabel: "美容，个人护理", dictValue: "7"}, {dictLabel: "工具，家居，厨房用具", dictValue: "8"},
-        {dictLabel: "服装，鞋子，珠宝", dictValue: "9"}, {dictLabel: "保健，家庭，婴儿护理", dictValue: "10"}],
       // 查询参数
       queryParams: {
         pageNum: 1,
         pageSize: 8,
-        deptId: user.state.deptId,
+        deptId: undefined,
         batchId: undefined,
         prodId: undefined,
         prodName: undefined,
         headBlock: undefined,
         createTime: undefined,
-        status: undefined
+        status: undefined,
+        price:undefined
       },
       // 表单参数
       form: {
@@ -278,7 +225,6 @@ export default {
   },
   created() {
     this.getList()
-    this.getEnableCreateProds()
   },
   methods: {
     // 日期清空
@@ -290,7 +236,6 @@ export default {
     /** 查询批次列表 */
     getList() {
       this.loading = true;
-      this.queryParams.deptId = user.state.deptId
       listBatch(this.addDateRange(this.queryParams, this.dateRange)).then(response => {
             this.batchList = response.rows;
             this.total = response.total;
@@ -308,16 +253,24 @@ export default {
       this.getList();
     },
     /** 新增按钮操作 */
-    handleAdd() {
-      this.selectProduct(0)
+    handleAdd(row) {
       this.open = true;
-      this.title = "添加产品批次";
+      this.title = "添加产品销售流程";
+      this.form.batchId = row.batchId
+      this.form.prodId = row.prodId
+      this.form.prodName = row.prodName
+      this.form.deptName = row.deptName
+      this.form.operatorId = user.state.userId
+      this.form.operatorName = user.state.name
+      this.form.phone = user.state.phone
+      this.form.deptId = user.state.deptId
+      this.form.chineseId = user.state.chineseId.substring(0, 14) + "****"
     },
     /** 提交按钮 */
     submitForm: function () {
       this.$refs["form"].validate(valid => {
         if (valid) {
-          addCreateFlow(this.form).then(response => {
+          addSaleFlow(this.form).then(response => {
             if (response.code === 200) {
               this.msgSuccess("新增成功");
               this.open = false;
@@ -329,41 +282,6 @@ export default {
         }
       });
     },
-
-    // 获取具有生产权利的产品列表
-    getEnableCreateProds() {
-      listProd({deptId: user.state.deptId, status: "0"}).then(res => {
-        this.productList = res.rows
-        for (let i = 0; i < this.productList.length; i++) {
-          let op = {dictLabel: '', dictValue: ''}
-          op.dictLabel = this.productList[i].prodName
-          op.dictValue = this.productList[i].prodId
-          this.productOptions.push(op)
-        }
-        this.selectProduct(0)
-      })
-    },
-
-    selectProduct(value) {
-      this.form = {}
-      let prodInfo = this.productList[0];
-      for (let i = 0; i < this.productList.length; i++) {
-        if (value === this.productList[i].prodId) {
-          prodInfo = this.productList[i];
-          break;
-        }
-      }
-      this.form.prodId = prodInfo.prodId
-      this.form.prodName = prodInfo.prodName
-      this.form.category = prodInfo.category
-      this.form.deptName = prodInfo.deptName
-      this.form.unit = prodInfo.unit
-      this.form.operatorId = user.state.userId
-      this.form.operatorName = user.state.name
-      this.form.phone = user.state.phone
-      this.form.deptId = user.state.deptId
-      this.form.chineseId = user.state.chineseId.substring(0, 14) + "****"
-    }
   },
 
 };
