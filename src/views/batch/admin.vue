@@ -90,13 +90,6 @@
               @click="getTrace(scope.row.batchId)"
           >查看
           </el-button>
-          <el-button
-              size="mini"
-              type="text"
-              icon="el-icon-edit"
-              @click="handleAdd(scope.row)"
-          >运输该批次
-          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -108,81 +101,11 @@
         :limit.sync="queryParams.pageSize"
         @pagination="getList"
     />
-
-    <!-- 添加参数配置对话框 -->
-    <el-dialog :title="title" :visible.sync="open" width="800px">
-      <el-form ref="form" :model="form" :rules="rules" label-width="80px">
-        <el-row>
-          <el-col :span="12">
-            <el-form-item label="厂商编号" prop="deptId">
-              <el-input v-model="form.deptId" disabled/>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="运输商" prop="deptName">
-              <el-input v-model="form.deptName" disabled/>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="操作人" prop="operatorName">
-              <el-input v-model="form.operatorName" disabled/>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="身份证号" prop="chineseId">
-              <el-input v-model="form.chineseId" disabled/>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="电话号码" prop="phone">
-              <el-input v-model="form.phone" disabled/>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="登记时间">
-              <el-input v-text="dateFormat(Date())" disabled/>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="始发地" prop="origin">
-              <el-input v-model="form.origin" placeholder="请输入始发地"/>
-            </el-form-item>
-          </el-col>
-          <el-col :span="12">
-            <el-form-item label="目的地" prop="destination">
-              <el-input v-model="form.destination" placeholder="请输入目的地"/>
-            </el-form-item>
-          </el-col>
-          <el-col :span="24">
-            <el-form-item label="备注" prop="notes">
-              <el-input
-                  type="textarea"
-                  :rows="2"
-                  maxlength="200"
-                  placeholder="请输入内容(不超过200字符)"
-                  v-model="form.notes">
-              </el-input>
-            </el-form-item>
-          </el-col>
-          <el-col :span="24">
-            <el-form-item label="资料上传">
-              <UpFlowFile ref="childFiliList"></UpFlowFile>
-            </el-form-item>
-          </el-col>
-        </el-row>
-      </el-form>
-      <div slot="footer" class="dialog-footer">
-        <el-button type="primary" @click="submitForm">确 定</el-button>
-        <el-button @click="cancel">取 消</el-button>
-      </div>
-    </el-dialog>
   </div>
 </template>
 
 <script>
 import {listBatch} from "@/api/batch";
-import {addTransportFlow} from "@/api/flow";
-import user from "@/store/modules/user";
 import UpFlowFile from "@/views/batch/upFlowFile.vue";
 
 export default {
@@ -234,15 +157,6 @@ export default {
         notes: undefined,
         fileList: []
       },
-      // 表单校验
-      rules: {
-        origin: [
-          {required: true, message: "始发地不能为空", trigger: "blur"}
-        ],
-        destination: [
-          {required: true, message: "目的地不能为空", trigger: "blur"}
-        ]
-      }
     };
   },
   created() {
@@ -277,37 +191,6 @@ export default {
     handleQuery() {
       this.queryParams.page = 1;
       this.getList();
-    },
-    /** 新增按钮操作 */
-    handleAdd(row) {
-      this.open = true;
-      this.title = "添加物流运输流程";
-      this.form.batchId = row.batchId
-      this.form.prodId = row.prodId
-      this.form.prodName = row.prodName
-      this.form.operatorId = user.state.userId
-      this.form.operatorName = user.state.name
-      this.form.phone = user.state.phone
-      this.form.deptId = user.state.deptId
-      this.form.deptName = user.state.deptName
-      this.form.chineseId = user.state.chineseId.substring(0, 14) + "****"
-    },
-    /** 提交按钮 */
-    submitForm: function () {
-      this.$refs["form"].validate(valid => {
-        if (valid) {
-          this.form.fileList = this.$refs.childFiliList.getFileList()
-          addTransportFlow(this.form).then(response => {
-            if (response.code === 200) {
-              this.msgSuccess("新增成功");
-              this.open = false;
-              this.getList();
-            } else {
-              this.msgError(response.msg);
-            }
-          });
-        }
-      });
     },
   },
 

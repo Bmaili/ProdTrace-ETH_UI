@@ -138,17 +138,17 @@
               <el-input v-model="form.deptName" placeholder="请输入企业全称"/>
             </el-form-item>
           </el-col>
-            <el-col :span="12">
-              <el-form-item label="简称" prop="shortName">
-                <el-input v-model="form.shortName" placeholder="请输入企业简称"/>
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
-              <el-form-item label="联系人" prop="linkman">
-                <el-input v-model="form.linkman" placeholder="请输入企业联系人"/>
-              </el-form-item>
-            </el-col>
-            <el-col :span="12">
+          <el-col :span="12">
+            <el-form-item label="简称" prop="shortName">
+              <el-input v-model="form.shortName" placeholder="请输入企业简称"/>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
+            <el-form-item label="联系人" prop="linkman">
+              <el-input v-model="form.linkman" placeholder="请输入企业联系人"/>
+            </el-form-item>
+          </el-col>
+          <el-col :span="12">
             <el-form-item label="联系电话" prop="linkphone">
               <el-input v-model="form.linkphone" placeholder="请输入企业联系电话"/>
             </el-form-item>
@@ -158,22 +158,22 @@
               <el-input v-model="form.license" placeholder="请输入营业执照号"/>
             </el-form-item>
           </el-col>
-            <el-col :span="12">
-              <el-form-item label="角色" prop="role">
-                <el-select v-model="form.role" placeholder="请选择">
-                  <el-option
-                      v-for="dict in roleOptions"
-                      :key="dict.dictValue"
-                      :label="dict.dictLabel"
-                      :value="dict.dictValue"
-                  ></el-option>
-                </el-select>
-              </el-form-item>
-            </el-col>
+          <el-col :span="12">
+            <el-form-item label="角色" prop="role">
+              <el-select v-model="form.role" placeholder="请选择">
+                <el-option
+                    v-for="dict in roleOptions"
+                    :key="dict.dictValue"
+                    :label="dict.dictLabel"
+                    :value="dict.dictValue"
+                ></el-option>
+              </el-select>
+            </el-form-item>
+          </el-col>
           <el-col>
-          <el-form-item label="地址" prop="address">
-            <el-input v-model="form.address" placeholder="请输入企业地址"/>
-          </el-form-item>
+            <el-form-item label="地址" prop="address">
+              <el-input v-model="form.address" placeholder="请输入企业地址"/>
+            </el-form-item>
           </el-col>
           <el-col :span="24">
             <el-form-item label="备注">
@@ -197,12 +197,12 @@
 
 <script>
 
-import {listDept, treeselect, getDept, delDept, addDept, updateDept} from "@/api/dept";
+import {listDept, getDept, delDept, addDept, updateDept} from "@/api/dept";
 import Upfile from "@/components/upfile.vue";
 
 export default {
   name: 'dept',
-  components:{
+  components: {
     Upfile
   },
 
@@ -243,7 +243,7 @@ export default {
         deptId: undefined,
         role: undefined
       },
-      type:'',
+      type: '',
       // 表单校验
       rules: {
         deptName: [
@@ -296,13 +296,13 @@ export default {
     },
     /** 新增按钮操作 */
     handleAdd() {
-      this.type='add'
+      this.type = 'add'
       this.form = {deptId: "平台自动生成"};
       this.open = true;
       this.title = "添加企业";
     },
     handleUpdate(row) {
-      this.type='update'
+      this.type = 'update'
       this.form = {};
       getDept(row.deptId).then(response => {
         this.form = response.data;

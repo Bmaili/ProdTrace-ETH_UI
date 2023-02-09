@@ -9,12 +9,12 @@ export function listFlow(query) {
     })
 }
 
-// 查询流程详细
-export function getFlow(flowId) {
+// 查询详细溯源流程
+export function getFlowTrace(traceId) {
     return request({
-        url: '/flow',
+        url: '/getTrace',
         method: 'get',
-        params: {flowId}
+        params: {traceId}
     })
 }
 
@@ -48,5 +48,15 @@ export function addSaleFlow(data) {
         url: '/saleFlow',
         method: 'post',
         data: data
+    })
+}
+export function upFlowFile(data) {
+    return request({
+        url: '/upFile',
+        method: 'post',
+        data: data,
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
     })
 }

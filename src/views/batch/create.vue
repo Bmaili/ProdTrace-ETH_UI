@@ -94,7 +94,7 @@
               size="mini"
               type="text"
               icon="el-icon-edit"
-              @click=""
+              @click="getTrace(scope.row.batchId)"
           >查看
           </el-button>
         </template>
@@ -141,7 +141,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="厂商编号" prop="deptName">
+            <el-form-item label="厂商编号" prop="deptId">
               <el-input v-model="form.deptId" disabled/>
             </el-form-item>
           </el-col>
@@ -156,7 +156,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="身份证号" prop="phone">
+            <el-form-item label="身份证号" prop="chineseId">
               <el-input v-model="form.chineseId" disabled/>
             </el-form-item>
           </el-col>
@@ -186,8 +186,19 @@
             </el-form-item>
           </el-col>
           <el-col :span="24">
-            <el-form-item label="备注">
-              <el-input v-model="form.notes" type="textarea" placeholder="请输入内容"></el-input>
+            <el-form-item label="备注" prop="notes">
+              <el-input
+                  type="textarea"
+                  :rows="2"
+                  maxlength="200"
+                  placeholder="请输入内容(不超过200字符)"
+                  v-model="form.notes">
+              </el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item label="资料上传">
+              <UpFlowFile ref="childFiliList"></UpFlowFile>
             </el-form-item>
           </el-col>
         </el-row>
@@ -205,8 +216,12 @@ import {listBatch} from "@/api/batch";
 import {addCreateFlow} from "@/api/flow";
 import user from "@/store/modules/user";
 import {listProd} from "@/api/products";
+import UpFlowFile from "@/views/batch/upFlowFile.vue";
 
 export default {
+  components: {
+    UpFlowFile
+  },
   data() {
     return {
       // 遮罩层
@@ -260,7 +275,9 @@ export default {
         unit: undefined,
         operatorId: undefined,
         phone: undefined,
-        operatorName: undefined
+        operatorName: undefined,
+        notes: undefined,
+        fileList: []
       },
       // 表单校验
       rules: {
@@ -281,6 +298,10 @@ export default {
     this.getEnableCreateProds()
   },
   methods: {
+    //查看流程溯源
+    getTrace(traceId) {
+      this.$router.push("/flow/" + traceId).catch(error => error);
+    },
     // 日期清空
     handleDate(e) {
       if (e == null) {
@@ -317,6 +338,7 @@ export default {
     submitForm: function () {
       this.$refs["form"].validate(valid => {
         if (valid) {
+          this.form.fileList = this.$refs.childFiliList.getFileList()
           addCreateFlow(this.form).then(response => {
             if (response.code === 200) {
               this.msgSuccess("新增成功");
@@ -356,12 +378,12 @@ export default {
       this.form.prodId = prodInfo.prodId
       this.form.prodName = prodInfo.prodName
       this.form.category = prodInfo.category
-      this.form.deptName = prodInfo.deptName
       this.form.unit = prodInfo.unit
       this.form.operatorId = user.state.userId
       this.form.operatorName = user.state.name
       this.form.phone = user.state.phone
       this.form.deptId = user.state.deptId
+      this.form.deptName = user.state.deptName
       this.form.chineseId = user.state.chineseId.substring(0, 14) + "****"
     }
   },

@@ -62,13 +62,6 @@
       </el-form-item>
       <el-form-item>
         <el-button type="primary" icon="el-icon-search" size="mini" @click="handleQuery">搜索</el-button>
-<!--        <el-button-->
-<!--            type="primary"-->
-<!--            icon="el-icon-plus"-->
-<!--            size="mini"-->
-<!--            @click="handleAdd"-->
-<!--        >新增批次-->
-<!--        </el-button>-->
       </el-form-item>
     </el-form>
 
@@ -94,7 +87,7 @@
               size="mini"
               type="text"
               icon="el-icon-edit"
-              @click=""
+              @click="getTrace(scope.row.batchId)"
           >查看
           </el-button>
           <el-button
@@ -102,7 +95,7 @@
               type="text"
               icon="el-icon-edit"
               @click="handleAdd(scope.row)"
-          >加工
+          >加工该批次
           </el-button>
         </template>
       </el-table-column>
@@ -118,10 +111,10 @@
 
     <!-- 添加参数配置对话框 -->
     <el-dialog :title="title" :visible.sync="open" width="800px">
-      <el-form ref="form" :model="form" :rules="rules" label-width="80px">
+      <el-form ref="form" :model="form" label-width="80px">
         <el-row>
           <el-col :span="12">
-            <el-form-item label="厂商编号" prop="deptName">
+            <el-form-item label="厂商编号" prop="deptId">
               <el-input v-model="form.deptId" disabled/>
             </el-form-item>
           </el-col>
@@ -136,7 +129,7 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="身份证号" prop="phone">
+            <el-form-item label="身份证号" prop="chineseId">
               <el-input v-model="form.chineseId" disabled/>
             </el-form-item>
           </el-col>
@@ -146,8 +139,24 @@
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="登记时间" prop="phone">
-              <el-input v-model="form.phone" disabled/>
+            <el-form-item label="加工时间">
+              <el-input v-text="dateFormat(Date())" disabled/>
+            </el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item label="备注" prop="notes">
+              <el-input
+                  type="textarea"
+                  :rows="2"
+                  maxlength="200"
+                  placeholder="请输入内容(不超过200字符)"
+                  v-model="form.notes">
+              </el-input>
+            </el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item label="资料上传">
+              <UpFlowFile ref="childFiliList"></UpFlowFile>
             </el-form-item>
           </el-col>
         </el-row>
@@ -164,8 +173,10 @@
 import {listBatch} from "@/api/batch";
 import {addProcessFlow} from "@/api/flow";
 import user from "@/store/modules/user";
+import UpFlowFile from "@/views/batch/upFlowFile.vue";
 
 export default {
+  components:{UpFlowFile},
   data() {
     return {
       // 遮罩层
@@ -207,26 +218,20 @@ export default {
         unit: undefined,
         operatorId: undefined,
         phone: undefined,
-        operatorName: undefined
+        operatorName: undefined,
+        notes: undefined,
+        fileList: []
       },
-      // 表单校验
-      rules: {
-        num: [
-          {required: true, message: "数量不能为空", trigger: "blur"}
-        ],
-        origin: [
-          {required: true, message: "源产地不能为空", trigger: "blur"}
-        ],
-        quality: [
-          {required: true, message: "保质期不能为空", trigger: "blur"}
-        ]
-      }
     };
   },
   created() {
     this.getList()
   },
   methods: {
+    //查看流程溯源
+    getTrace(traceId) {
+      this.$router.push("/flow/" + traceId).catch(error => error);
+    },
     // 日期清空
     handleDate(e) {
       if (e == null) {
@@ -259,17 +264,18 @@ export default {
       this.form.batchId = row.batchId
       this.form.prodId = row.prodId
       this.form.prodName = row.prodName
-      this.form.deptName = row.deptName
       this.form.operatorId = user.state.userId
       this.form.operatorName = user.state.name
       this.form.phone = user.state.phone
       this.form.deptId = user.state.deptId
+      this.form.deptName = user.state.deptName
       this.form.chineseId = user.state.chineseId.substring(0, 14) + "****"
     },
     /** 提交按钮 */
     submitForm: function () {
       this.$refs["form"].validate(valid => {
         if (valid) {
+          this.form.fileList = this.$refs.childFiliList.getFileList()
           addProcessFlow(this.form).then(response => {
             if (response.code === 200) {
               this.msgSuccess("新增成功");

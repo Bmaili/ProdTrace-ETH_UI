@@ -19,7 +19,6 @@ router.afterEach(() => {
 
 router.beforeEach((to, from, next) => {
     NProgress.start()
-    console.log(to.path)
     if (getToken()) {
         /* has token*/
         if (to.path === '/login') {

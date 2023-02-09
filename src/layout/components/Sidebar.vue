@@ -42,6 +42,10 @@
           <i class="el-icon-s-promotion"></i>
           <span slot="title">操作日志</span>
         </el-menu-item>
+        <el-menu-item v-if="role==='0'" index="10" @click="goPage('batch/admin')">
+          <i class="el-icon-s-promotion"></i>
+          <span slot="title">溯源管理</span>
+        </el-menu-item>
         <el-menu-item v-if="role==='1'" index="10" @click="goPage('batch/create')">
           <i class="el-icon-s-promotion"></i>
           <span slot="title">产品生产</span>

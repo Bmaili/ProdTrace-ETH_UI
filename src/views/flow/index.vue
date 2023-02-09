@@ -1,11 +1,11 @@
 <template>
   <div id='app'>
-  <el-timeline v-for='item in compoList'>
-      <el-timeline-item timestamp="2018/4/12" placement="top" type="success">
+    <el-timeline v-for='(item,index) in compoList' :key='index'>
+      <el-timeline-item :timestamp="flowDataList[index].vueTime" placement="top" type="success">
         <el-card>
-          <h4>更新 Github 模板</h4>
-          <p>王小虎 提交于 2018/4/12 20:46</p>
-          <component :is="compoMap[item-1].comp" :msg="dataInfo[item-1]"></component>
+          <p v-if="flowDataList[index].vueTime!==undefined">{{flowDataList[index].操作人}} 提交于 {{flowDataList[index].vueTime}}</p>
+          <p v-else>系统自动生成</p>
+          <component :is="item" :info="flowDataList[index]"></component>
         </el-card>
       </el-timeline-item>
     </el-timeline>
@@ -14,28 +14,63 @@
 
 
 <script>
-import Creater from "@/views/flow/creater.vue";
-import Processer from "@/views/flow/processer.vue";
+import BaseInfo from "@/views/flow/baseInfo.vue";
+import Create from "@/views/flow/create.vue";
+import Process from "@/views/flow/process.vue";
+import Transport from "@/views/flow/transport.vue";
+import Sale from "@/views/flow/sale.vue";
+import {getFlowTrace} from "@/api/flow";
 
 export default {
   name: 'flow',
   components: {
-    Creater,
-    Processer
+    BaseInfo,
+    Create,
+    Process,
+    Transport,
+    Sale
   },
   data() {
     return {
+      traceId: undefined,
       compoList: [],
-      compoMap: [ {id: "1", comp: Creater}, {id: "2", comp: Processer}],
-      dataInfo:[],
+      flowDataList: [],
     }
   },
   methods: {
+    getFlowTraceInfo() {
+      this.traceId = window.location.pathname.split('/')[2];
+      getFlowTrace(this.traceId).then(res => {
+        let flowListStr = res.data;
+        for (let i = 0; i < flowListStr.length; i++) {
+          let everyFlowObj = {};
+          everyFlowObj = eval("(" + flowListStr[i] + ")");
 
+          let key = Object.keys(everyFlowObj)[0];
+          let value = Object.values(everyFlowObj)[0];
+          if (key === "基本信息") {
+            this.compoList.push(BaseInfo)
+          } else if (key === "产品生产") {
+            this.compoList.push(Create)
+            value.vueTime = value.生产时间
+          } else if (key === "产品加工") {
+            this.compoList.push(Process)
+            value.vueTime = value.加工时间
+          } else if (key === "产品运输") {
+            this.compoList.push(Transport)
+            value.vueTime = value.登记时间
+          } else if (key === "产品销售") {
+            this.compoList.push(Sale)
+            value.vueTime = value.上架时间
+          }
+
+          this.flowDataList.push(value);
+        }
+      })
+    }
   },
   created() {
-    this.compoList = ["1", "2", "1"];
-    this.dataInfo=[{名字:"周杰伦",phone:"18778324978",jzd:"广西桂林",notes:"学校",address:"广西省桂林市恭城瑶族自治区西岭想"},{}]
+    this.getFlowTraceInfo();
   }
 }
 </script>
