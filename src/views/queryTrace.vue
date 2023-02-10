@@ -33,7 +33,6 @@ export default {
   methods: {
     handleQuery() {
       this.$router.push("/flow/" + this.input).catch(error => error);
-
     }
   }
 }
