@@ -69,11 +69,11 @@ export default {
   name: "login",
   data() {
     return {
-      codeUrl: "https://bmalimarkdown.oss-cn-beijing.aliyuncs.com/common/OIP2.png",
+      codeUrl: "",
       cookiePassword: "",
       loginForm: {
-        username: "", //admin
-        password: "", //admin123
+        username: "",
+        password: "",
         rememberMe: false,
         code: "",
         uuid: ""
@@ -158,7 +158,7 @@ export default {
   justify-content: center;
   align-items: center;
   height: 100%;
-  background-image: url("../assets/image/login-background.jpg");
+  background-image: url("../../assets/image/login-background.jpg");
   background-size: cover;
 }
 .title {

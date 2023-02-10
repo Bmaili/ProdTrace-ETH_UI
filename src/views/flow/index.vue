@@ -1,5 +1,6 @@
 <template>
   <div id='app'>
+    <h2 v-if="Nothing">查询不到任何信息！</h2>
     <el-timeline v-for='(item,index) in compoList' :key='index'>
       <el-timeline-item :timestamp="flowDataList[index].vueTime" placement="top" type="success">
         <el-card>
@@ -35,6 +36,7 @@ export default {
       traceId: undefined,
       compoList: [],
       flowDataList: [],
+      Nothing:false,
     }
   },
   methods: {
@@ -42,6 +44,10 @@ export default {
       this.traceId = window.location.pathname.split('/')[2];
       getFlowTrace(this.traceId).then(res => {
         let flowListStr = res.data;
+        if(flowListStr.length===0){
+          this.Nothing=true;
+          return
+        }
         for (let i = 0; i < flowListStr.length; i++) {
           let everyFlowObj = {};
           everyFlowObj = eval("(" + flowListStr[i] + ")");
