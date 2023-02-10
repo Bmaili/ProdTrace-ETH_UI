@@ -29,17 +29,17 @@ export const constantRoutes = [
                 name: '所属企业',
                 meta: {title: '所属企业', icon: 'dashboard', noCache: true, affix: true}
             },
-            {
-                path: 'queryTrace',
-                component: () => import('@/views/queryTrace'),
-                name: '溯源查询',
-                meta: {title: '溯源查询', icon: 'dashboard', noCache: true, affix: true}
-            },
+            // {
+            //     path: 'flow',
+            //     component: () => import('@/views/flow'),
+            //     name: '流程溯源',
+            //     meta: {title: '流程溯源', icon: 'dashboard', noCache: true, affix: true}
+            // },
             {
                 path: 'flow/:batchId',
                 component: () => import('@/views/flow'),
-                name: '溯源信息',
-                meta: {title: '溯源信息', icon: 'dashboard', noCache: true, affix: true}
+                name: '流程溯源',
+                meta: {title: '流程溯源', icon: 'dashboard', noCache: true, affix: true}
             },
             {
                 path: 'order',

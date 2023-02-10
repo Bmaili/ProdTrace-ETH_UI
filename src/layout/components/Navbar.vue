@@ -4,7 +4,7 @@
 
     <div class="right-menu">
       <template>
-        <el-tooltip content="开源地址" effect="dark" placement="bottom">
+        <el-tooltip content="下载源码" effect="dark" placement="bottom">
           <GQ_ETH id="gq_eth" class="right-menu-item hover-effect"/>
         </el-tooltip>
 
@@ -23,6 +23,9 @@
           <router-link to="/profile" class="routerlink">
             <el-dropdown-item>个人中心</el-dropdown-item>
           </router-link>
+          <el-dropdown-item>
+            <span>布局设置</span>
+          </el-dropdown-item>
           <el-dropdown-item divided>
             <span @click="logout">退出登录</span>
           </el-dropdown-item>
