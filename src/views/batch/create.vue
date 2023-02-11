@@ -339,6 +339,13 @@ export default {
       this.$refs["form"].validate(valid => {
         if (valid) {
           this.form.fileList = this.$refs.childFiliList.getFileList()
+          const loading = this.$loading({
+            lock: true,
+            text: '数据上链中...',
+            spinner: 'el-icon-loading',
+            background: 'rgba(0, 0, 0, 0.7)'
+          });
+
           addCreateFlow(this.form).then(response => {
             if (response.code === 200) {
               this.msgSuccess("新增成功");
@@ -347,6 +354,7 @@ export default {
             } else {
               this.msgError(response.msg);
             }
+            loading.close();
           });
         }
       });

@@ -4,7 +4,6 @@
 
     <div class="right-menu">
       <template>
-
         <el-tooltip content="下载源码" effect="dark" placement="bottom">
           <GQ_ETH id="gq_eth" class="right-menu-item hover-effect"/>
         </el-tooltip>
@@ -41,10 +40,6 @@ import {mapGetters} from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb/index.vue'
 import Screenfull from '@/components/Screenfull'
 import GQ_ETH from "@/components/GQ_ETH/index.vue";
-import {logout, getInfo} from "@/api/login";
-import {getToken, setToken, removeToken} from '@/utils/auth'
-
-import store from "@/store";
 
 export default {
   name: "Navbar",
