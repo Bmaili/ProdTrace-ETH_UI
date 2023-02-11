@@ -3,7 +3,7 @@
     <el-form :inline="true" class="query">
       <el-form-item>
         <el-input
-            v-model="input"
+            v-model="traceId"
             placeholder="请输入溯源码"
             prefix-icon="el-icon-search"
             clearable
@@ -27,12 +27,12 @@ export default {
   name: "QueryTrace",
   data() {
     return {
-      input: ''
+      traceId: ''
     }
   },
   methods: {
     handleQuery() {
-      this.$router.push("/flow/" + this.input).catch(error => error);
+      this.$router.push({name:'flow',params:{traceId:this.traceId}}).catch(error => error);
     }
   }
 }

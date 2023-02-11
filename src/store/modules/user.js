@@ -82,7 +82,7 @@ const user = {
             return new Promise((resolve, reject) => {
                 getInfo(state.token).then(res => {
                     const data = res.data
-                    const avatar = data.avatar == "" ? require("@/assets/image/profile.jpg") :  data.avatar;
+                    const avatar = data.avatar == "" ? require("@/assets/imgs/profile.jpg") :  data.avatar;
                     commit('SET_USERID', data.operatorId)
                     commit('SET_NAME', data.operatorName)
                     commit('SET_ROLE', data.role)

@@ -14,40 +14,46 @@ export const constantRoutes = [
             {
                 path: 'index',
                 component: () => import('@/views/index'),
-                name: '首页',
+                name: 'index',
                 meta: {title: '首页', icon: 'dashboard', noCache: true, affix: true}
             },
             {
                 path: 'profile',
                 component: () => import('@/views/profile'),
-                name: '个人中心',
+                name: 'profile',
                 meta: {title: '个人中心', icon: 'dashboard', noCache: true, affix: true}
             },
             {
                 path: 'deptInfo',
                 component: () => import('@/views/deptInfo'),
-                name: '所属企业',
+                name: 'deptInfo',
                 meta: {title: '所属企业', icon: 'dashboard', noCache: true, affix: true}
             },
-            // {
-            //     path: 'flow',
-            //     component: () => import('@/views/flow'),
-            //     name: '流程溯源',
-            //     meta: {title: '流程溯源', icon: 'dashboard', noCache: true, affix: true}
-            // },
             {
-                path: 'flow/:batchId',
+                path: 'flow',
                 component: () => import('@/views/flow'),
-                name: '流程溯源',
-                meta: {title: '流程溯源', icon: 'dashboard', noCache: true, affix: true}
+                name: 'flow',
+                meta: {title: '溯源信息', icon: 'dashboard', noCache: true, affix: true}
             },
             {
-                path: 'order',
-                name: '上传示例',
-                component: () => import('@/views/order'),
-                meta: {title: '上传示例', icon: 'dashboard', noCache: true, affix: true}
-            }
+                path: 'queryTrace',
+                component: () => import('@/views/queryTrace'),
+                name: 'queryTrace',
+                meta: {title: '溯源查询', icon: 'dashboard', noCache: true, affix: true}
+            },
         ]
+    },
+    {
+        path: '/trace',
+        component: () => import('@/views/tourist/trace'),
+        name: 'trace',
+        meta: {title: '流程溯源', icon: 'dashboard', noCache: true, affix: true}
+    },
+    {
+        path: '/feedback',
+        component: () => import('@/views/tourist/feedback'),
+        name: 'feedback',
+        meta: {title: '反馈', icon: 'dashboard', noCache: true, affix: true}
     },
     {
         path: '/login',

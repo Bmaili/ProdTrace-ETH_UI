@@ -485,7 +485,7 @@ export default {
 
 <style lang="scss">
 .my-tree {
-  max-height: 618px;
+  max-height: 580px;
   display: inline-block;
   overflow: auto;
 }
