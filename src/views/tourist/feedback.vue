@@ -23,36 +23,41 @@
 
     <!-- 添加参数配置对话框 -->
     <el-dialog title="用户反馈" :visible.sync="open" width="800px">
-      <el-form ref="form" :model="form" label-width="80px">
+      <el-form ref="form" :model="form" :rules="rules"  label-width="80px">
         <el-row>
           <el-col :span="12">
-            <el-form-item label="厂商编号" prop="deptId">
-              <el-input v-model="form.deptId"/>
+            <el-form-item label="姓名" prop="name">
+              <el-input v-model="form.name"/>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="加工商" prop="deptName">
-              <el-input v-model="form.deptName"/>
+            <el-form-item label="联系电话" prop="phone">
+              <el-input v-model="form.phone"/>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="操作人" prop="operatorName">
-              <el-input v-model="form.operatorName"/>
+            <el-form-item label="电子邮件" prop="email">
+              <el-input v-model="form.email"/>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="身份证号" prop="chineseId">
-              <el-input v-model="form.chineseId"/>
+            <el-form-item label="居住地址" prop="address">
+              <el-input v-model="form.address"/>
             </el-form-item>
           </el-col>
           <el-col :span="24">
-            <el-form-item label="备注" prop="notes">
+            <el-form-item label="标题" prop="title">
+              <el-input v-model="form.title"/>
+            </el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item label="反馈信息" prop="info">
               <el-input
                   type="textarea"
                   :rows="4"
                   maxlength="800"
                   placeholder="请输入内容(不超过800字符)"
-                  v-model="form.notes">
+                  v-model="form.info">
               </el-input>
             </el-form-item>
           </el-col>
@@ -70,18 +75,47 @@
 
 <script>
 
+import {feedback} from "@/api/user";
 export default {
   name: 'feedback',
   data() {
     return {
       form: [],
-      open: false
+      open: false,
+      // 表单校验
+      rules: {
+        num: [
+          {required: true, message: "数量不能为空", trigger: "blur"}
+        ],
+        origin: [
+          {required: true, message: "源产地不能为空", trigger: "blur"}
+        ],
+        quality: [
+          {required: true, message: "保质期不能为空", trigger: "blur"}
+        ]
+      },
     }
   },
   methods: {
     agree() {
       this.open = true
-    }
+    },
+    /** 提交按钮 */
+    submitForm: function () {
+      this.$refs["form"].validate(valid => {
+        if (valid) {
+          feedback(this.form).then(response => {
+            if (response.code === 200) {
+              this.msgSuccess("新增成功");
+              this.open = false;
+              this.getList();
+            } else {
+              this.msgError(response.msg);
+            }
+          });
+        }
+      });
+    },
   },
   created() {
   }
