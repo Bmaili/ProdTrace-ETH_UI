@@ -43,7 +43,7 @@
                 style="width: 240px"
             >
               <el-option
-                  v-for="dict in statusOptions"
+                  v-for="dict in roleOptions"
                   :key="dict.dictValue"
                   :label="dict.dictLabel"
                   :value="dict.dictValue"
@@ -182,7 +182,23 @@
           </el-col>
           <el-col :span="24" v-if="this.type!=='add'">
             <el-form-item label="资料上传">
-              <upfile :deptId="this.form.deptId"></upfile>
+              <el-upload
+                  action
+                  :http-request="uploadFile"
+                  list-type="picture-card"
+                  :file-list="fileList"
+                  :on-preview="handlePictureCardPreview"
+                  :limit="4"
+                  :before-upload="beforeUpload"
+                  :on-exceed="limitMsg"
+                  :on-remove="handleRemove"
+                  accept=".png, .jpg, .jpeg">
+
+                <i class="el-icon-plus"></i>
+                <el-dialog :visible.sync="dialogVisible">
+                  <img width="100%" :src="dialogImageUrl" alt="">
+                </el-dialog>
+              </el-upload>
             </el-form-item>
           </el-col>
         </el-row>
@@ -197,7 +213,7 @@
 
 <script>
 
-import {listDept, getDept, delDept, addDept, updateDept} from "@/api/dept";
+import {listDept, getDept, delDept, addDept, updateDept, upPic} from "@/api/dept";
 import Upfile from "@/components/upfile.vue";
 
 export default {
@@ -208,6 +224,12 @@ export default {
 
   data() {
     return {
+      deptId: undefined,
+      dialogImageUrl: '',
+      dialogVisible: false,
+      fileList: [],
+      fileStr: '',
+
       // 遮罩层
       loading: true,
       // 总条数
@@ -221,11 +243,6 @@ export default {
       initPassword: undefined,
       // 日期范围
       dateRange: [],
-      // 状态数据字典
-      statusOptions: [{dictLabel: "生产商", dictValue: "1"}, {
-        dictLabel: "加工商",
-        dictValue: "2"
-      }, {dictLabel: "物流运输", dictValue: "3"}, {dictLabel: "销售终端", dictValue: "4"}],
       // 性别状态字典
       sexOptions: [{dictLabel: "女", dictValue: "0"}, {dictLabel: "男", dictValue: "1"}],
       // 角色选项
@@ -305,7 +322,9 @@ export default {
       this.type = 'update'
       this.form = {};
       getDept(row.deptId).then(response => {
+        this.deptId = response.data.deptId
         this.form = response.data;
+        this.form.picture = undefined;
         this.open = true;
         this.title = "修改企业";
       });
@@ -357,9 +376,74 @@ export default {
       this.open = false;
       this.form = {};
     },
-    getDeptInfo(deptId){
+    getDeptInfo(deptId) {
       this.$router.push("/deptInfo/" + deptId).catch(error => error);
+    },
+    //上传文件的事件
+    uploadFile(item) {
+      console.log("item是：")
+      console.log(item)
+      this.msgInfo('文件上传中........');
+      let FormDatas = new FormData()
+      FormDatas.append('file', item.file);
+      upPic(FormDatas).then(res => {
+        let newPic = {
+          name: "",
+          url: "",
+          uid: item.file.uid
+        }
+        newPic.url = res.data.picPath
+        this.fileList.push(newPic)
+        this.updatePicStr()
+      }).then(() => {
+        return updateDept({deptId: this.deptId, picture: this.fileStr})
+      }).then(() => {
+        this.msgSuccess("上传完成！");
+      }).catch(() => {
+        this.msgError("上传失败！")
+      });
+    },
+    handleRemove(file) {
+      this.fileList = this.fileList.filter(function (item) {
+        return item.uid !== file.uid
+      })
+      this.updatePicStr()
+      updateDept({deptId: this.deptId, picture: this.fileStr})
+    },
+    handlePictureCardPreview(file) {
+      this.dialogImageUrl = file.url;
+      this.dialogVisible = true;
+    },
+    updatePicStr() {
+      this.fileStr = ''
+      for (let i = 0; i < this.fileList.length; i++) {
+        let str = this.fileList[i].url
+        this.fileStr += ',' + str
+      }
+      if (this.fileStr !== '') {
+        this.fileStr = this.fileStr.slice(1)
+      }
+    },
+    limitMsg() {
+      this.msgError("最多不超过4个文件!")
+    },
+    beforeUpload(file) {
+      // 定义能上传的文件格式
+      var ext = file.name.substring(file.name.lastIndexOf('.') + 1);
+      const isLtSize = file.size / 1024 / 1024 < 10;
+      const extension = ext === 'jpg';
+      const extension2 = ext === 'png';
+      const extension3 = ext === 'jpeg';
+
+      if (!extension && !extension2 && !extension3) {
+        this.msgError('上传文件只能是 jpg/png/jpeg 格式!')
+      }
+      if (!isLtSize) {
+        this.msgError('上传文件大小不能超过 10MB!')
+      }
+      return isLtSize && (extension || extension2 || extension3);
     }
+
   }
 }
 </script>
