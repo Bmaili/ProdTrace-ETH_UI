@@ -187,7 +187,7 @@ export default {
   },
   methods: {
     feedback(){
-      this.$router.push({name:'feedback'}).catch(error => error);
+      this.$router.push({name:'userFeedback'}).catch(error => error);
     },
     handleQuery() {
       this.$router.push({name:'trace',params:{traceId:this.traceId}}).catch(error => error);

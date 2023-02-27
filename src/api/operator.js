@@ -58,3 +58,27 @@ export function delOperator(operatorId) {
     })
 }
 
+// 用户密码更改
+export function updateUserPwd(oldPassword, newPassword) {
+    const data = {
+        oldPassword,
+        newPassword
+    }
+    return request({
+        url: '/user/updatePass',
+        method: 'put',
+        params: data
+    })
+}
+
+// 用户头像上传
+export function uploadAvatar(data) {
+    return request({
+        url: '/operator/avatar',
+        method: 'post',
+        data: data,
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    })
+}

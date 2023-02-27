@@ -1,13 +1,13 @@
 <template>
   <el-form ref="form" :model="user" :rules="rules" label-width="80px">
-    <el-form-item label="用户姓名" prop="nickName">
-      <el-input v-model="user.name"/>
+    <el-form-item label="用户姓名" prop="name">
+      <el-input v-model="user.name" maxlength="10" prefix-icon="el-icon-user"/>
     </el-form-item>
     <el-form-item label="手机号码" prop="phone">
-      <el-input v-model="user.phone" maxlength="11"/>
+      <el-input v-model="user.phone" maxlength="11" prefix-icon="el-icon-mobile-phone"/>
     </el-form-item>
     <el-form-item label="邮箱" prop="email">
-      <el-input v-model="user.email" maxlength="50"/>
+      <el-input v-model="user.email" maxlength="50" prefix-icon="el-icon-message"/>
     </el-form-item>
     <el-form-item label="性别">
       <el-radio-group v-model="user.sex">
@@ -23,8 +23,9 @@
 </template>
 
 <script>
-import {updateUserProfile} from "@/api/user";
 import user from "@/store/modules/user";
+import {updateOperator} from "@/api/operator";
+import store from "@/store";
 
 export default {
   created() {
@@ -44,7 +45,7 @@ export default {
       // 表单校验
       rules: {
         name: [
-          {required: true, message: "用户姓名不能为空", trigger: "blur"}
+          {required: true, message: "用户姓名不能为空", trigger: "blur"},
         ],
         email: [
           {required: true, message: "邮箱地址不能为空", trigger: "blur"},
@@ -69,9 +70,18 @@ export default {
     submit() {
       this.$refs["form"].validate(valid => {
         if (valid) {
-          updateUserProfile(this.user).then(response => {
+          var operator = {};
+          operator.operator_id = user.state.userId;
+          operator.operator_name = this.user.name;
+          operator.phone = this.user.phone;
+          operator.email = this.user.email;
+          operator.sex = this.user.sex;
+          updateOperator(operator).then(response => {
             if (response.code === 200) {
-              this.msgSuccess("修改成功");
+              // 重新拉取user_info信息
+              store.dispatch('GetInfo').then(res => {
+                this.msgSuccess("修改成功");
+              })
             } else {
               this.msgError(response.msg);
             }

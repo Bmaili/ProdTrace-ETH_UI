@@ -10,7 +10,7 @@ import user from "@/store/modules/user";
 
 NProgress.configure({showSpinner: false})
 
-const whiteList = ['/login', '/flow', '/404', '/401','/trace','/feedback']
+const whiteList = ['/login', '/flow', '/404', '/401','/trace','/userFeedback']
 
 
 router.afterEach(() => {

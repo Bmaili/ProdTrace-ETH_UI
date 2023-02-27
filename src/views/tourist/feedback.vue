@@ -19,6 +19,12 @@
                  @click="agree()"
       >同意并继续
       </el-button>
+      <el-button size="medium"
+                 type="info"
+                 style="width:20%;float: right" round
+                 @click="toIndex()"
+      >返回
+      </el-button>
     </div>
 
     <!-- 添加参数配置对话框 -->
@@ -99,6 +105,9 @@ export default {
   methods: {
     agree() {
       this.open = true
+    },
+    toIndex(){
+      this.$router.push("/").catch(error => error);
     },
     /** 提交按钮 */
     submitForm: function () {
