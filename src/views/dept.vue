@@ -381,8 +381,6 @@ export default {
     },
     //上传文件的事件
     uploadFile(item) {
-      console.log("item是：")
-      console.log(item)
       this.msgInfo('文件上传中........');
       let FormDatas = new FormData()
       FormDatas.append('file', item.file);
