@@ -15,7 +15,7 @@ export const constantRoutes = [
                 path: 'index',
                 component: () => import('@/views/index'),
                 name: 'index',
-                meta: {title: '首页', icon: 'dashboard', noCache: true, affix: true}
+                meta: {icon: 'dashboard', noCache: true, affix: true}
             },
             {
                 path: 'profile',
@@ -50,9 +50,9 @@ export const constantRoutes = [
         meta: {title: '流程溯源', icon: 'dashboard', noCache: true, affix: true}
     },
     {
-        path: '/feedback',
+        path: '/userFeedback',
         component: () => import('@/views/tourist/feedback'),
-        name: 'feedback',
+        name: 'userFeedback',
         meta: {title: '反馈', icon: 'dashboard', noCache: true, affix: true}
     },
     {

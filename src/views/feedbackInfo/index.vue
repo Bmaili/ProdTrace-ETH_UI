@@ -3,77 +3,79 @@
     <el-row :gutter="20">
       <el-col :xs="24">
 
-        <el-descriptions class="margin-top" title="企业详细信息" :column="2" border>
+        <el-descriptions class="margin-top" title="用户反馈详细信息" :column="2" border>
 <!--          <template slot="extra">-->
 <!--            <el-button type="primary" size="small">操作</el-button>-->
 <!--          </template>-->
           <el-descriptions-item>
             <template slot="label">
               <i class="el-icon-user"></i>
-              企业编号
+              反馈ID
             </template>
-            {{ dept.deptId }}
+            {{ feedback.feedbackId }}
           </el-descriptions-item>
           <el-descriptions-item>
             <template slot="label">
               <i class="el-icon-user"></i>
-              角色
+              满意度
             </template>
-            <el-tag size="small">{{ roleOptions[dept.role].dictLabel }}</el-tag>
-
+            <el-tag size="small"  :type="feedback.eval==='2'?'danger':'success'">{{ evalOptions[Number(feedback.eval)].dictLabel }}
+            </el-tag>
           </el-descriptions-item>
           <el-descriptions-item>
             <template slot="label">
               <i class="el-icon-user"></i>
-              企业全称
+              反馈人姓名
             </template>
-            {{ dept.deptName }}
+            {{ feedback.name }}
           </el-descriptions-item>
           <el-descriptions-item>
             <template slot="label">
               <i class="el-icon-user"></i>
-              联系人
+              反馈人电话
             </template>
-            {{ dept.linkman }}
+            {{ feedback.phone }}
           </el-descriptions-item>
           <el-descriptions-item>
             <template slot="label">
               <i class="el-icon-user"></i>
-              简称
+              反馈人邮箱
             </template>
-            {{ dept.shortName }}
+            {{ feedback.email }}
           </el-descriptions-item>
           <el-descriptions-item>
             <template slot="label">
               <i class="el-icon-user"></i>
-              联系电话
+              反馈时间
             </template>
-            {{ dept.linkphone }}
+            {{ feedback.createTime }}
           </el-descriptions-item>
           <el-descriptions-item>
             <template slot="label">
               <i class="el-icon-user"></i>
-              营业执照号
+              反馈人地址
             </template>
-            {{ dept.license }}
-          </el-descriptions-item>
-          <el-descriptions-item>
-            <template slot="label">
-              <i class="el-icon-user"></i>
-              税务登记证号
-            </template>
-            /
-          </el-descriptions-item>
-          <el-descriptions-item>
-            <template slot="label">
-              <i class="el-icon-office-building"></i>
-              联系地址
-            </template>
-            {{ dept.address }}
+            {{ feedback.address }}
           </el-descriptions-item>
         </el-descriptions>
 
         <el-descriptions class="margin-top" descriptions="vertical" :column="1" border>
+          <el-descriptions-item>
+            <template slot="label">
+              <i class="el-icon-user"></i>
+              反馈标题
+            </template>
+            {{ feedback.title }}
+          </el-descriptions-item>
+
+          <el-descriptions-item>
+            <template slot="label">
+              <i class="el-icon-user"></i>
+              反馈内容
+            </template>
+            {{ feedback.info }}
+          </el-descriptions-item>
+
           <el-descriptions-item>
             <template slot="label">
               <i class="el-icon-user"></i>
@@ -89,15 +91,6 @@
               </li>
             </ul>
           </el-descriptions-item>
-
-          <el-descriptions-item>
-            <template slot="label">
-              <i class="el-icon-user"></i>
-              备注
-            </template>
-            {{ dept.notes }}
-          </el-descriptions-item>
-
         </el-descriptions>
       </el-col>
     </el-row>
@@ -110,37 +103,34 @@
 </template>
 
 <script>
-import {getDept} from "@/api/dept";
-import user from "@/store/modules/user";
+import {getFeedback} from "@/api/feedback";
 
 export default {
-  name: "deptInfo",
+  name: "feedbackInfo",
 
   data() {
     return {
-      dept: {},
-      activeTab: 'deptInfo',
-      // 角色选项
-      roleOptions: [{dictLabel: "管理员", dictValue: "0"}, {dictLabel: "生产商", dictValue: "1"},
-        {dictLabel: "加工商", dictValue: "2"}, {dictLabel: "物流运输", dictValue: "3"},
-        {dictLabel: "销售终端", dictValue: "4"}],
+      feedback: {},
+      activeTab: 'feedbackInfo',
+      // 满意度选项字典
+      evalOptions: [{dictLabel: "满意", dictValue: "0"}, {
+        dictLabel: "良好",
+        dictValue: "1"
+      }, {dictLabel: "不满意", dictValue: "2"}],
       urls: []
     };
   },
   created() {
-    let deptInfo = window.location.pathname.split('/')[2];
-    if (deptInfo === undefined) {
-      deptInfo = user.state.deptId
-    }
-    getDept(deptInfo).then(res => {
-      this.dept = res.data
+    let feedbackId = window.location.pathname.split('/')[2];
+    getFeedback(feedbackId).then(res => {
+      this.feedback = res.data
     },).then(() => {
       this.getPictureUrl()
     })
   },
   methods: {
     getPictureUrl() {
-      let str = this.dept.picture;
+      let str = this.feedback.picture;
       this.urls = str.split(',');
     }
   }

@@ -140,7 +140,6 @@
               >修改
               </el-button>
               <el-button
-                  v-if="scope.row.operatorId !== 1"
                   size="mini"
                   type="text"
                   icon="el-icon-delete"

@@ -75,9 +75,9 @@
 
 <script>
 
-import {feedback} from "@/api/user";
+import {addFeedback} from "@/api/feedback";
 export default {
-  name: 'feedback',
+  name: 'userFeedback',
   data() {
     return {
       form: [],
@@ -104,7 +104,7 @@ export default {
     submitForm: function () {
       this.$refs["form"].validate(valid => {
         if (valid) {
-          feedback(this.form).then(response => {
+          addFeedback(this.form).then(response => {
             if (response.code === 200) {
               this.msgSuccess("新增成功");
               this.open = false;

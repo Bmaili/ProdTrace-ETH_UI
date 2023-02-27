@@ -22,7 +22,7 @@
           <i class="el-icon-s-goods"></i>
           <span slot="title">产品管理</span>
         </el-menu-item>
-        <el-menu-item v-if="role==='0'" index="10" @click="goPage('batch/admin')">
+        <el-menu-item v-if="role==='0'" index="10" @click="goPage('traceability')">
           <i class="el-icon-s-promotion"></i>
           <span slot="title">溯源管理</span>
         </el-menu-item>
@@ -42,13 +42,13 @@
           <i class="el-icon-s-promotion"></i>
           <span slot="title">产品销售</span>
         </el-menu-item>
-        <el-menu-item  index="20" @click="goPage('QueryTrace')">
-          <i class="el-icon-search"></i>
-          <span slot="title">溯源查询</span>
-        </el-menu-item>
-        <el-menu-item v-if="role==='0'" index="21" @click="goPage('QueryTrace')">
+        <el-menu-item v-if="role==='0'" index="21" @click="goPage('feedback')">
           <i class="el-icon-chat-dot-square"></i>
           <span slot="title">用户反馈</span>
+        </el-menu-item>
+        <el-menu-item  index="20" @click="goPage('queryTrace')">
+          <i class="el-icon-search"></i>
+          <span slot="title">溯源查询</span>
         </el-menu-item>
       </el-menu>
     </el-scrollbar>

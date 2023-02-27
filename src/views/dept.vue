@@ -98,7 +98,7 @@
                   size="mini"
                   type="text"
                   icon="el-icon-info"
-                  @click="handleUpdate(scope.row)"
+                  @click="getDeptInfo(scope.row.deptId)"
               >详细
               </el-button>
               <el-button
@@ -357,6 +357,9 @@ export default {
       this.open = false;
       this.form = {};
     },
+    getDeptInfo(deptId){
+      this.$router.push("/deptInfo/" + deptId).catch(error => error);
+    }
   }
 }
 </script>

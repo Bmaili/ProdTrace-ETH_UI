@@ -29,10 +29,20 @@ export function updateRotes(role) {
                     name: '企业详情',
                     meta: {title: '企业详情', icon: 'dashboard', noCache: true, affix: true}
                 }, {
-                    path: 'batch/admin',
+                    path: 'traceability',
                     component: () => import('@/views/batch/admin'),
                     name: '溯源管理',
                     meta: {title: '溯源管理', icon: 'dashboard', noCache: true, affix: true}
+                }, {
+                    path: 'feedback',
+                    component: () => import('@/views/feedback'),
+                    name: '用户反馈',
+                    meta: {title: '用户反馈', icon: 'dashboard', noCache: true, affix: true}
+                }, {
+                    path: 'feedbackInfo/:feedbackId',
+                    component: () => import('@/views/feedbackInfo'),
+                    name: '反馈详情',
+                    meta: {title: '反馈详情', icon: 'dashboard', noCache: true, affix: true}
                 }, {
                     path: 'logininfor',
                     component: () => import('@/views/log/logininfor.vue'),
