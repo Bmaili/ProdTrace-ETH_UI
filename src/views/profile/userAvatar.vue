@@ -53,6 +53,7 @@
 
 <script>
 import store from "@/store";
+import user from "@/store/modules/user";
 import { VueCropper } from "vue-cropper";
 import { uploadAvatar } from "@/api/operator";
 
@@ -119,6 +120,7 @@ export default {
           if (response.code === 200) {
             this.open = false;
             this.options.img = response.data.picPath;
+            user.state.avatar = this.options.img;
             this.msgSuccess("修改成功");
           } else {
             this.msgError(response.msg);
