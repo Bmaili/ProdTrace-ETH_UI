@@ -47,14 +47,6 @@ export function getOptionsList(query) {
     })
 }
 
-// 根据角色ID查询企业树结构
-// export function roleDeptTreeselect(roleId) {
-//     return request({
-//         url: '/system/dept/roleDeptTreeselect/' + roleId,
-//         method: 'get'
-//     })
-// }
-
 // 新增企业
 export function addDept(data) {
     return request({

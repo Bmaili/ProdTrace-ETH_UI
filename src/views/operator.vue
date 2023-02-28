@@ -140,7 +140,6 @@
               >修改
               </el-button>
               <el-button
-                  v-if="scope.row.operatorId !== 1"
                   size="mini"
                   type="text"
                   icon="el-icon-delete"
@@ -485,7 +484,7 @@ export default {
 
 <style lang="scss">
 .my-tree {
-  max-height: 618px;
+  max-height: 580px;
   display: inline-block;
   overflow: auto;
 }

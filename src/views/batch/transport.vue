@@ -251,7 +251,7 @@ export default {
   methods: {
     //查看流程溯源
     getTrace(traceId) {
-      this.$router.push("/flow/" + traceId).catch(error => error);
+      this.$router.push({name:'flow',params:{traceId:traceId}}).catch(error => error);
     },
     // 日期清空
     handleDate(e) {

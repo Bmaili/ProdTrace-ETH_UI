@@ -53,8 +53,9 @@
 
 <script>
 import store from "@/store";
+import user from "@/store/modules/user";
 import { VueCropper } from "vue-cropper";
-import { uploadAvatar } from "@/api/user";
+import { uploadAvatar } from "@/api/operator";
 
 export default {
   components: { VueCropper },
@@ -112,12 +113,14 @@ export default {
     // 上传图片
     uploadImg() {
       this.$refs.cropper.getCropBlob(data => {
+        console.log(data)
         let formData = new FormData();
-        formData.append("avatarfile", data);
+        formData.append("file", data);
         uploadAvatar(formData).then(response => {
           if (response.code === 200) {
             this.open = false;
-            this.options.img = process.env.VUE_APP_BASE_API + response.imgUrl;
+            this.options.img = response.data.picPath;
+            user.state.avatar = this.options.img;
             this.msgSuccess("修改成功");
           } else {
             this.msgError(response.msg);

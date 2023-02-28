@@ -1,5 +1,5 @@
 <template>
-  <el-container>
+  <el-container class="allBack">
     <Sidebar></Sidebar>
     <el-container>
       <el-header>
@@ -31,18 +31,17 @@ export default {
 </script>
 
 <style>
-.el-main {
-  background-color: #f5f7f9;
-}
 
 .el-header,
 .el-footer {
-  background-color: white;
   box-sizing: border-box;
-  border-bottom: 1px solid #f5f1f1;
 }
 
 .el-container {
   height: 100%;
+}
+.allBack{
+  background: linear-gradient(to right, rgb(201, 232, 197), rgb(191, 227, 241));
+
 }
 </style>

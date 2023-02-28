@@ -1,16 +1,19 @@
 <template>
-  <div id='app'>
-    <h2 v-if="Nothing">查询不到任何信息！</h2>
-    <el-timeline v-for='(item,index) in compoList' :key='index'>
-      <el-timeline-item :timestamp="flowDataList[index].vueTime" placement="top" type="success">
-        <el-card>
-          <p v-if="flowDataList[index].vueTime!==undefined">{{ flowDataList[index].操作人 }} 提交于
-            {{ flowDataList[index].vueTime }}</p>
-          <p v-else>系统自动生成</p>
-          <component :is="item" :info="flowDataList[index]"></component>
-        </el-card>
-      </el-timeline-item>
-    </el-timeline>
+  <div class="trace">
+    <div class="inner">
+      <h2 v-if="Nothing">查询不到任何信息！</h2>
+      <el-timeline v-for='(item,index) in compoList' :key='index'>
+        <el-timeline-item :timestamp="flowDataList[index].vueTime" placement="top" type="success">
+          <el-card>
+            <p v-if="flowDataList[index].vueTime!==undefined">{{ flowDataList[index].操作人 }} 提交于
+              {{ flowDataList[index].vueTime }}</p>
+            <p v-else>系统自动生成</p>
+            <component :is="item" :info="flowDataList[index]"></component>
+          </el-card>
+        </el-timeline-item>
+      </el-timeline>
+    </div>
+
   </div>
 </template>
 
@@ -77,10 +80,17 @@ export default {
     }
   },
   created() {
-    this.getFlowTraceInfo()
+    this.getFlowTraceInfo();
   }
 }
 </script>
 
-<style>
+<style scoped>
+.trace{
+  background: linear-gradient(to right, rgb(201, 232, 197), rgb(191, 227, 241));
+}
+.inner{
+  width: 90%;
+  margin:0px auto
+}
 </style>

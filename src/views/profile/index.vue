@@ -44,10 +44,10 @@
               </li>
               <li class="list-group-item">
                 <i class="el-icon-male"></i>性别
-                <div class="pull-right">{{ user.role == "0" ? "女" : "男" }}</div>
+                <div class="pull-right">{{ user.sex === "0" ? "女" : "男" }}</div>
               </li>
               <li class="list-group-item">
-                <i class="el-icon-date"></i>创建日期
+                <i class="el-icon-date"></i>更新时间
                 <div class="pull-right">{{ dateFormat(user.createTime) }}</div>
               </li>
             </ul>
@@ -77,7 +77,6 @@
 import userAvatar from "./userAvatar";
 import userInfo from "./userInfo";
 import resetPwd from "./resetPwd";
-import {getUserProfile} from "@/api/user";
 import user from "@/store/modules/user";
 
 export default {

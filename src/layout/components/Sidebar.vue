@@ -6,7 +6,7 @@
 
     <el-scrollbar wrap-class="scrollbar-wrapper">
       <el-menu :unique-opened="true" mode="vertical">
-        <el-menu-item index="1" @click="goPage('index')">
+        <el-menu-item index="0" @click="goPage('index')">
           <i class="el-icon-menu"></i>
           <span slot="title">首页</span>
         </el-menu-item>
@@ -22,45 +22,33 @@
           <i class="el-icon-s-goods"></i>
           <span slot="title">产品管理</span>
         </el-menu-item>
-        <el-menu-item  index="4" @click="goPage('deptInfo')">
-          <i class="el-icon-s-home"></i>
-          <span slot="title">所属企业</span>
-        </el-menu-item>
-        <el-menu-item  index="5" @click="goPage('flow')">
-          <i class="el-icon-s-home"></i>
-          <span slot="title">批次流程</span>
-        </el-menu-item>
-        <el-menu-item  index="99" @click="goPage('order')">
-          <i class="el-icon-s-order"></i>
-          <span slot="title">文件上传</span>
-        </el-menu-item>
-        <el-menu-item v-if="role==='0'" index="5" @click="goPage('logininfor')">
-          <i class="el-icon-s-promotion"></i>
-          <span slot="title">登录日志</span>
-        </el-menu-item>
-        <el-menu-item v-if="role==='0'" index="6" @click="goPage('operlog')">
-          <i class="el-icon-s-promotion"></i>
-          <span slot="title">操作日志</span>
-        </el-menu-item>
-        <el-menu-item v-if="role==='0'" index="10" @click="goPage('batch/admin')">
+        <el-menu-item v-if="role==='0'" index="10" @click="goPage('traceability')">
           <i class="el-icon-s-promotion"></i>
           <span slot="title">溯源管理</span>
         </el-menu-item>
-        <el-menu-item v-if="role==='1'" index="10" @click="goPage('batch/create')">
+        <el-menu-item v-if="role==='1'" index="11" @click="goPage('batch/create')">
           <i class="el-icon-s-promotion"></i>
           <span slot="title">产品生产</span>
         </el-menu-item>
-        <el-menu-item v-if="role==='2'" index="10" @click="goPage('batch/process')">
+        <el-menu-item v-if="role==='2'" index="12" @click="goPage('batch/process')">
           <i class="el-icon-s-promotion"></i>
           <span slot="title">产品加工</span>
         </el-menu-item>
-        <el-menu-item v-if="role==='3'" index="10" @click="goPage('batch/transport')">
+        <el-menu-item v-if="role==='3'" index="13" @click="goPage('batch/transport')">
           <i class="el-icon-s-promotion"></i>
-          <span slot="title">物流运输</span>
+          <span slot="title">产品运输</span>
         </el-menu-item>
-        <el-menu-item v-if="role==='4'" index="10" @click="goPage('batch/sale')">
+        <el-menu-item v-if="role==='4'" index="14" @click="goPage('batch/sale')">
           <i class="el-icon-s-promotion"></i>
           <span slot="title">产品销售</span>
+        </el-menu-item>
+        <el-menu-item v-if="role==='0'" index="21" @click="goPage('feedback')">
+          <i class="el-icon-chat-dot-square"></i>
+          <span slot="title">用户反馈</span>
+        </el-menu-item>
+        <el-menu-item  index="20" @click="goPage('queryTrace')">
+          <i class="el-icon-search"></i>
+          <span slot="title">溯源查询</span>
         </el-menu-item>
       </el-menu>
     </el-scrollbar>

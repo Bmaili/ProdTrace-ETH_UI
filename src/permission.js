@@ -10,7 +10,7 @@ import user from "@/store/modules/user";
 
 NProgress.configure({showSpinner: false})
 
-const whiteList = ['/login', '/auth-redirect', '/bind', '/register']
+const whiteList = ['/login', '/flow', '/404', '/401','/trace','/userFeedback']
 
 
 router.afterEach(() => {
@@ -49,6 +49,8 @@ router.beforeEach((to, from, next) => {
             next()
         } else {
             next('/login') // 否则全部重定向到登录页
+            console.log(to.path)
+            console.log("不在白名单，否则全部重定向到登录页")
             NProgress.done()
         }
     }
