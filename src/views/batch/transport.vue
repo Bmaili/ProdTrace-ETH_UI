@@ -66,7 +66,7 @@
     </el-form>
 
     <el-table v-loading="loading" :data="batchList" stripe>
-      <el-table-column label="溯源码(批次号)" prop="batchId" align="center" width="120"/>
+      <el-table-column label="溯源码(批次号)" prop="batchId" align="center"  />
       <el-table-column label="产品编号" prop="prodId" align="center" width="120"/>
       <el-table-column label="产品名称" prop="prodName" align="center" :show-overflow-tooltip="true" width="120"/>
       <el-table-column label="所属生产商" align="center" prop="deptName" width="230" show-overflow-tooltip>
@@ -77,9 +77,11 @@
           <span>{{ dateFormat(scope.row.createTime) }}</span>
         </template>
       </el-table-column>
-      <el-table-column label="首个区块号" prop="headBlock" align="center" :show-overflow-tooltip="true" width="120"/>
-      <el-table-column label="最新流程" align="center">
-        <template slot-scope="scope">{{ statusOptions[Number(scope.row.status)].dictLabel }}</template>
+      <el-table-column label="最新流程" align="center" width="100">
+        <el-tag size="small" slot-scope="scope" :type="scope.row.status==='0'?'success':scope.row.status==='2'?'info':'warning'">
+          {{ statusOptions[Number(scope.row.status)].dictLabel }}
+        </el-tag>
+        <!--        <template slot-scope="scope">{{ statusOptions[Number(scope.row.status)].dictLabel }}</template>-->
       </el-table-column>
       <el-table-column label="操作" align="center" width="150" class-name="small-padding fixed-width">
         <template slot-scope="scope">

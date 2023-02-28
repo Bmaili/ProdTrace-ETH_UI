@@ -6,56 +6,56 @@
         <el-descriptions class="margin-top" title="销售流程记录" :column="2" border>
           <el-descriptions-item>
             <template slot="label">
-              <i class="el-icon-user"></i>
+              <i class="el-icon-cloudy"></i>
               销售端编号
             </template>
             {{ info.销售端编号 }}
           </el-descriptions-item>
           <el-descriptions-item>
             <template slot="label">
-              <i class="el-icon-user"></i>
+              <i class="el-icon-cloudy"></i>
               销售端全称
             </template>
             {{ info.销售端全称 }}
           </el-descriptions-item>
           <el-descriptions-item>
             <template slot="label">
-              <i class="el-icon-user"></i>
+              <i class="el-icon-cloudy"></i>
               操作人
             </template>
             {{ info.操作人 }}
           </el-descriptions-item>
           <el-descriptions-item>
             <template slot="label">
-              <i class="el-icon-user"></i>
+              <i class="el-icon-cloudy"></i>
               联系电话
             </template>
             {{ info.联系电话 }}
           </el-descriptions-item>
           <el-descriptions-item>
             <template slot="label">
-              <i class="el-icon-user"></i>
+              <i class="el-icon-cloudy"></i>
               身份证号
             </template>
             {{ info.身份证号 }}
           </el-descriptions-item>
           <el-descriptions-item>
             <template slot="label">
-              <i class="el-icon-user"></i>
+              <i class="el-icon-cloudy"></i>
               报价
             </template>
             {{ info.报价 }}
           </el-descriptions-item>
           <el-descriptions-item>
             <template slot="label">
-              <i class="el-icon-user"></i>
+              <i class="el-icon-cloudy"></i>
               销售地址
             </template>
             {{ info.销售地址 }}
           </el-descriptions-item>
           <el-descriptions-item>
             <template slot="label">
-              <i class="el-icon-user"></i>
+              <i class="el-icon-cloudy"></i>
               上架时间
             </template>
             {{ info.上架时间 }}

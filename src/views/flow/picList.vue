@@ -2,14 +2,14 @@
   <el-descriptions class="margin-top" descriptions="vertical" :column="1" border :label-style="LS">
     <el-descriptions-item>
       <template slot="label">
-        <i class="el-icon-user"></i>
+        <i class="el-icon-cloudy"></i>
         备注
       </template>
       {{ (notes === undefined || notes === "") ? "无" : notes }}
     </el-descriptions-item>
     <el-descriptions-item>
       <template slot="label">
-        <i class="el-icon-user"></i>
+        <i class="el-icon-cloudy"></i>
         辅助验证文件
       </template>
       <ul id="box">
@@ -24,7 +24,7 @@
     </el-descriptions-item>
     <el-descriptions-item>
       <template slot="label">
-        <i class="el-icon-user"></i>
+        <i class="el-icon-cloudy"></i>
         文件SHA256摘要
       </template>
       <p v-for="sha in SHA256List" class="sha256">

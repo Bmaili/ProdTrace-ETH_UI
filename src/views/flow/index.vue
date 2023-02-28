@@ -41,7 +41,14 @@ export default {
     }
   },
   methods: {
+    clearList() {
+      this.traceId = undefined
+      this.compoList = []
+      this.flowDataList = []
+      this.Nothing = false
+    },
     getFlowTraceInfo() {
+      this.clearList()
       this.traceId = this.$route.params.traceId
       getFlowTrace(this.traceId).then(res => {
         let flowListStr = res.data;
@@ -78,6 +85,13 @@ export default {
   },
   created() {
     this.getFlowTraceInfo()
+  },
+  watch: {
+    $route(to, from) {
+      if(to.path==="/flow"){
+        this.getFlowTraceInfo()
+      }
+    }
   }
 }
 </script>

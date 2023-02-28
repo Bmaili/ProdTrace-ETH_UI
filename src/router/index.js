@@ -33,7 +33,7 @@ export const constantRoutes = [
                 path: 'flow',
                 component: () => import('@/views/flow'),
                 name: 'flow',
-                meta: {title: '溯源信息', icon: 'dashboard', noCache: true, affix: true}
+                meta: {title: '溯源信息', icon: 'dashboard', noCache: true, affix: true},
             },
             {
                 path: 'queryTrace',

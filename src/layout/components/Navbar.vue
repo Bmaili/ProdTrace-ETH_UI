@@ -67,6 +67,8 @@ export default {
       }).then(() => {
         this.$store.dispatch('LogOut').then(() => {
           location.reload()
+        }).then(()=>{
+          this.$router.push("/").catch(error => error);
         })
       })
     }

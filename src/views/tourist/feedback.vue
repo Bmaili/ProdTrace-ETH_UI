@@ -29,31 +29,38 @@
 
     <!-- 添加参数配置对话框 -->
     <el-dialog title="用户反馈" :visible.sync="open" width="800px">
-      <el-form ref="form" :model="form" :rules="rules"  label-width="80px">
+      <el-form ref="form" :model="form" :rules="rules" label-width="80px">
         <el-row>
           <el-col :span="12">
             <el-form-item label="姓名" prop="name">
-              <el-input v-model="form.name"/>
+              <el-input v-model="form.name" maxlength="10"/>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="联系电话" prop="phone">
-              <el-input v-model="form.phone"/>
+              <el-input v-model="form.phone" maxlength="11"/>
             </el-form-item>
           </el-col>
           <el-col :span="12">
-            <el-form-item label="电子邮件" prop="email">
-              <el-input v-model="form.email"/>
+            <el-form-item label="电子邮箱" prop="email">
+              <el-input v-model="form.email" maxlength="50"/>
             </el-form-item>
           </el-col>
           <el-col :span="12">
             <el-form-item label="居住地址" prop="address">
-              <el-input v-model="form.address"/>
+              <el-input v-model="form.address" maxlength="50"/>
+            </el-form-item>
+          </el-col>
+          <el-col :span="24">
+            <el-form-item label="满意度" prop="eval">
+              <el-radio v-model="form.eval" label="0">满意</el-radio>
+              <el-radio v-model="form.eval" label="1">良好</el-radio>
+              <el-radio v-model="form.eval" label="2">不满意</el-radio>
             </el-form-item>
           </el-col>
           <el-col :span="24">
             <el-form-item label="标题" prop="title">
-              <el-input v-model="form.title"/>
+              <el-input v-model="form.title" maxlength="50"/>
             </el-form-item>
           </el-col>
           <el-col :span="24">
@@ -67,11 +74,33 @@
               </el-input>
             </el-form-item>
           </el-col>
+          <el-col :span="24">
+            <el-form-item label="资料上传">
+              <el-upload
+                  action
+                  :http-request="uploadFile"
+                  list-type="picture-card"
+                  :on-preview="handlePictureCardPreview"
+                  :limit="4"
+                  drag
+                  :file-list="fileList"
+                  :before-upload="beforeUpload"
+                  :on-exceed="limitMsg"
+                  :on-remove="handleRemove"
+                  accept=".png, .jpg, .jpeg">
+
+                <i class="el-icon-plus"></i>
+                <el-dialog :visible.sync="dialogVisible">
+                  <img width="100%" :src="dialogImageUrl" alt="">
+                </el-dialog>
+              </el-upload>
+            </el-form-item>
+          </el-col>
         </el-row>
       </el-form>
       <div slot="footer" class="dialog-footer">
-        <el-button type="primary">确 定</el-button>
-        <el-button>取 消</el-button>
+        <el-button type="primary" @click="submitForm()">确 定</el-button>
+        <el-button @click="cancel()">取 消</el-button>
       </div>
     </el-dialog>
 
@@ -81,38 +110,88 @@
 
 <script>
 
-import {addFeedback} from "@/api/feedback";
+import {addFeedback, upPic} from "@/api/feedback";
+
 export default {
   name: 'userFeedback',
   data() {
     return {
-      form: [],
+      fileList: [],
+      dialogImageUrl: '',
+      dialogVisible: false,
+      form: {
+        eval: "2",
+        name: undefined,
+        phone: undefined,
+        address: undefined,
+        email: undefined,
+        title: undefined,
+        info: undefined,
+        picture: undefined
+      },
       open: false,
       // 表单校验
       rules: {
-        num: [
-          {required: true, message: "数量不能为空", trigger: "blur"}
+        eval: [
+          {required: true, message: "满意度不能为空", trigger: "blur"}
         ],
-        origin: [
-          {required: true, message: "源产地不能为空", trigger: "blur"}
+        name: [
+          {required: true, message: "姓名不能为空", trigger: "blur"}
         ],
-        quality: [
-          {required: true, message: "保质期不能为空", trigger: "blur"}
+        phone: [
+          {
+            required: true,
+            pattern: /^1[3|4|5|6|7|8|9][0-9]\d{8}$/,
+            message: "请输入正确的手机号码",
+            trigger: "blur"
+          }
+        ],
+        title: [
+          {required: true, message: "标题不能为空", trigger: "blur"}
+        ],
+        info: [
+          {required: true, message: "反馈内容不能为空", trigger: "blur"}
         ]
       },
     }
   },
   methods: {
+    cancel() {
+      this.open = false;
+      this.clearForm();
+    },
+    clearForm() {
+      this.form.eval = "2";
+      this.form.name = undefined;
+      this.form.phone = undefined;
+      this.form.address = undefined;
+      this.form.email = undefined;
+      this.form.title = undefined;
+      this.form.info = undefined;
+      this.form.picture = undefined;
+      this.fileList = [];
+    },
+    getPictureStr() {
+      this.form.picture = ''
+      for (let i = 0; i < this.fileList.length; i++) {
+        let str = this.fileList[i].url
+        this.form.picture += ',' + str
+      }
+      if (this.form.picture !== '') {
+        this.form.picture = this.form.picture.slice(1)
+      }
+    },
     agree() {
       this.open = true
     },
-    toIndex(){
+    toIndex() {
       this.$router.push("/").catch(error => error);
     },
     /** 提交按钮 */
     submitForm: function () {
       this.$refs["form"].validate(valid => {
         if (valid) {
+          this.getPictureStr()
           addFeedback(this.form).then(response => {
             if (response.code === 200) {
               this.msgSuccess("新增成功");
@@ -123,8 +202,55 @@ export default {
             }
           });
         }
+        this.clearForm()
       });
     },
+    //上传文件的事件
+    uploadFile(item) {
+      this.msgInfo('文件上传中........');
+      let FormDatas = new FormData()
+      FormDatas.append('file', item.file);
+      upPic(FormDatas).then(res => {
+        let newFile = {
+          url: "",
+          uid: item.file.uid
+        }
+        newFile.url = res.data.picPath
+        this.fileList.push(newFile)
+      }).then(() => {
+        this.msgSuccess("上传完成！");
+      }).catch(() => {
+        this.msgError("上传失败！")
+      });
+    },
+    handleRemove(file) {
+      this.fileList = this.fileList.filter(function (item) {
+        return item.uid !== file.uid
+      })
+    },
+    handlePictureCardPreview(file) {
+      this.dialogImageUrl = file.url;
+      this.dialogVisible = true;
+    },
+    limitMsg() {
+      this.msgError("最多不超过4个文件!")
+    },
+    beforeUpload(file) {
+      // 定义能上传的文件格式
+      var ext = file.name.substring(file.name.lastIndexOf('.') + 1);
+      const isLtSize = file.size / 1024 / 1024 < 10;
+      const extension = ext === 'jpg';
+      const extension2 = ext === 'png';
+      const extension3 = ext === 'jpeg';
+
+      if (!extension && !extension2 && !extension3) {
+        this.msgError('上传文件只能是 jpg/png/jpeg 格式!')
+      }
+      if (!isLtSize) {
+        this.msgError('上传文件大小不能超过 10MB!')
+      }
+      return isLtSize && (extension || extension2 || extension3);
+    }
   },
   created() {
   }
