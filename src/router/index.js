@@ -56,6 +56,12 @@ export const constantRoutes = [
         meta: {title: '反馈', icon: 'dashboard', noCache: true, affix: true}
     },
     {
+        path: '/help',
+        component: () => import('@/views/tourist/help'),
+        name: 'help',
+        meta: {title: '帮助', icon: 'dashboard', noCache: true, affix: true}
+    },
+    {
         path: '/login',
         component: () => import('@/views/login'),
     },

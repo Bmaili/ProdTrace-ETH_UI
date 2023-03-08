@@ -43,16 +43,6 @@ export function updateRotes(role) {
                     component: () => import('@/views/feedbackInfo'),
                     name: '反馈详情',
                     meta: {title: '反馈详情', icon: 'dashboard', noCache: true, affix: true}
-                }, {
-                    path: 'logininfor',
-                    component: () => import('@/views/log/logininfor.vue'),
-                    name: '登录日志',
-                    meta: {title: '登录日志', icon: 'dashboard', noCache: true, affix: true}
-                }, {
-                    path: 'operlog',
-                    name: '操作日志',
-                    component: () => import('@/views/log/operlog2.vue'),
-                    meta: {title: '操作日志', icon: 'dashboard', noCache: true, affix: true}
                 }]
             })
     } else if (role === '1') {

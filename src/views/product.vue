@@ -113,13 +113,6 @@
               @click="handleUpdate(scope.row)"
           >修改
           </el-button>
-          <el-button
-              size="mini"
-              type="text"
-              icon="el-icon-delete"
-              @click="handleDelete(scope.row)"
-          >删除
-          </el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -296,6 +289,8 @@ export default {
     handleUpdate(row) {
       this.form = {};
       getProd(row.prodId).then(response => {
+        console.log(row.prodId)
+        console.log(response.data)
         this.form = response.data;
         this.open = true;
         this.title = "修改产品";
@@ -330,10 +325,6 @@ export default {
       });
     },
 
-    /** 删除按钮操作 */
-    handleDelete() {
-
-    },
     // 产品状态修改
     handleStatusChange(row) {
       let text = row.status === "0" ? "启用" : "停用";
