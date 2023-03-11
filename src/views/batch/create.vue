@@ -73,7 +73,7 @@
     </el-form>
 
     <el-table v-loading="loading" :data="batchList" stripe>
-      <el-table-column label="溯源码(批次号)" prop="batchId" align="center"  />
+      <el-table-column label="溯源码(批次号)" prop="batchId" align="center"/>
       <el-table-column label="产品编号" prop="prodId" align="center" width="120"/>
       <el-table-column label="产品名称" prop="prodName" align="center" :show-overflow-tooltip="true" width="120"/>
       <el-table-column label="所属生产商" align="center" prop="deptName" width="230" show-overflow-tooltip>
@@ -85,7 +85,8 @@
         </template>
       </el-table-column>
       <el-table-column label="最新流程" align="center" width="100">
-        <el-tag size="small" slot-scope="scope" :type="scope.row.status==='0'?'success':scope.row.status==='2'?'info':'warning'">
+        <el-tag size="small" slot-scope="scope"
+                :type="scope.row.status==='0'?'success':scope.row.status==='2'?'info':'warning'">
           {{ statusOptions[Number(scope.row.status)].dictLabel }}
         </el-tag>
         <!--        <template slot-scope="scope">{{ statusOptions[Number(scope.row.status)].dictLabel }}</template>-->
@@ -251,11 +252,11 @@ export default {
       }, {dictLabel: "在售", dictValue: "2"}],
       // 产品类别数据字典
       categoryOptions: [
-        {dictLabel: "其它", dictValue: "0"}, {dictLabel: "食品", dictValue: "1"}, {dictLabel: "家电", dictValue: "2"},
-        {dictLabel: "电子用品", dictValue: "3"}, {dictLabel: "宠物用品", dictValue: "4"},
-        {dictLabel: "玩具，游戏", dictValue: "5"}, {dictLabel: "运动，户外用品", dictValue: "6"},
-        {dictLabel: "美容，个人护理", dictValue: "7"}, {dictLabel: "工具，家居，厨房用具", dictValue: "8"},
-        {dictLabel: "服装，鞋子，珠宝", dictValue: "9"}, {dictLabel: "保健，家庭，婴儿护理", dictValue: "10"}],
+        {dictLabel: "其他", dictValue: "0"}, {dictLabel: "农产品", dictValue: "1"}, {dictLabel: "饮食", dictValue: "2"},
+        {dictLabel: "电子用品", dictValue: "3"}, {dictLabel: "家居", dictValue: "4"},
+        {dictLabel: "服饰", dictValue: "5"}, {dictLabel: "护理", dictValue: "6"},
+        {dictLabel: "运动", dictValue: "7"}, {dictLabel: "工艺品", dictValue: "8"},
+        {dictLabel: "医疗", dictValue: "9"}],
       // 查询参数
       queryParams: {
         pageNum: 1,

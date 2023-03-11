@@ -217,11 +217,11 @@ export default {
       statusOptions: [{dictLabel: "正常", dictValue: "0"}, {dictLabel: "停用", dictValue: "1"}],
       // 产品类别数据字典
       categoryOptions: [
-        {dictLabel: "其它", dictValue: "0"}, {dictLabel: "食品", dictValue: "1"}, {dictLabel: "家电", dictValue: "2"},
-        {dictLabel: "电子用品", dictValue: "3"}, {dictLabel: "宠物用品", dictValue: "4"},
-        {dictLabel: "玩具，游戏", dictValue: "5"}, {dictLabel: "运动，户外用品", dictValue: "6"},
-        {dictLabel: "美容，个人护理", dictValue: "7"}, {dictLabel: "工具，家居，厨房用具", dictValue: "8"},
-        {dictLabel: "服装，鞋子，珠宝", dictValue: "9"}, {dictLabel: "保健，家庭，婴儿护理", dictValue: "10"}],
+        {dictLabel: "其他", dictValue: "0"}, {dictLabel: "农产品", dictValue: "1"}, {dictLabel: "饮食", dictValue: "2"},
+        {dictLabel: "电子用品", dictValue: "3"}, {dictLabel: "家居", dictValue: "4"},
+        {dictLabel: "服饰", dictValue: "5"}, {dictLabel: "护理", dictValue: "6"},
+        {dictLabel: "运动", dictValue: "7"}, {dictLabel: "工艺品", dictValue: "8"},
+        {dictLabel: "医疗", dictValue: "9"}],
       // 查询参数
       queryParams: {
         pageNum: 1,
