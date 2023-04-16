@@ -63,7 +63,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #box li {
   text-decoration: none; /*去掉前面的圆点*/
   list-style: none;
@@ -74,5 +74,9 @@ export default {
 }
 .sha256{
   margin:4px auto;
+}
+.el-tag{
+  white-space: normal;
+  height:auto;
 }
 </style>

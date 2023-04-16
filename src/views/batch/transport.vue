@@ -66,7 +66,7 @@
     </el-form>
 
     <el-table v-loading="loading" :data="batchList" stripe>
-      <el-table-column label="溯源码(批次号)" prop="batchId" align="center"  />
+      <el-table-column label="溯源码(批次号)" prop="batchId" align="center"/>
       <el-table-column label="产品编号" prop="prodId" align="center" width="120"/>
       <el-table-column label="产品名称" prop="prodName" align="center" :show-overflow-tooltip="true" width="120"/>
       <el-table-column label="所属生产商" align="center" prop="deptName" width="230" show-overflow-tooltip>
@@ -78,12 +78,13 @@
         </template>
       </el-table-column>
       <el-table-column label="最新流程" align="center" width="100">
-        <el-tag size="small" slot-scope="scope" :type="scope.row.status==='0'?'success':scope.row.status==='2'?'info':'warning'">
+        <el-tag size="small" slot-scope="scope"
+                :type="scope.row.status==='0'?'success':scope.row.status==='2'?'info':'warning'">
           {{ statusOptions[Number(scope.row.status)].dictLabel }}
         </el-tag>
         <!--        <template slot-scope="scope">{{ statusOptions[Number(scope.row.status)].dictLabel }}</template>-->
       </el-table-column>
-      <el-table-column label="操作" align="center" width="150" class-name="small-padding fixed-width">
+      <el-table-column label="操作" align="center" width="200" class-name="small-padding fixed-width">
         <template slot-scope="scope">
           <el-button
               size="mini"
@@ -98,6 +99,13 @@
               icon="el-icon-edit"
               @click="handleAdd(scope.row)"
           >运输该批次
+          </el-button>
+          <el-button
+              size="mini"
+              type="text"
+              icon="el-icon-picture-outline"
+              @click="prShow(scope.row.batchId)"
+          >扫码
           </el-button>
         </template>
       </el-table-column>
@@ -178,6 +186,11 @@
         <el-button @click="cancel">取 消</el-button>
       </div>
     </el-dialog>
+
+  <el-dialog :title="prConfig.title" :visible.sync="prConfig.isShow" width="380px">
+    <vue-qr :text="prConfig.text" :logoScale="40" :size="300" :logoSrc="prConfig.logo">
+    </vue-qr>
+  </el-dialog>
   </div>
 </template>
 
@@ -186,11 +199,22 @@ import {listBatch} from "@/api/batch";
 import {addTransportFlow} from "@/api/flow";
 import user from "@/store/modules/user";
 import UpFlowFile from "@/views/batch/upFlowFile.vue";
+import VueQr from "vue-qr";
 
 export default {
-  components:{UpFlowFile},
+  components: {
+    UpFlowFile,
+    VueQr
+  },
   data() {
     return {
+      //二维码展示
+      prConfig: {
+        logo: require("@/assets/imgs/loginLogo.png"),//默认二维码中间图片
+        text: undefined, //二维码内容,编码格式默认使用base64
+        isShow: false,
+        title: undefined
+      },
       // 遮罩层
       loading: true,
       // 总条数
@@ -251,9 +275,15 @@ export default {
     this.getList()
   },
   methods: {
+    //展示二维码
+    prShow(traceId) {
+      this.prConfig.text = process.env.VUE_APP_UI_URL + "/trace?traceId=" + traceId,
+          this.prConfig.title = "对应溯源码： " + traceId;
+      this.prConfig.isShow = true;
+    },
     //查看流程溯源
     getTrace(traceId) {
-      this.$router.push({name:'flow',params:{traceId:traceId}}).catch(error => error);
+      this.$router.push({name: 'flow', params: {traceId: traceId}}).catch(error => error);
     },
     // 日期清空
     handleDate(e) {

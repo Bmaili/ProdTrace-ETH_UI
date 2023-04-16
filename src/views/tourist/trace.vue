@@ -46,6 +46,9 @@ export default {
   methods: {
     getFlowTraceInfo() {
       this.traceId = this.$route.params.traceId
+      if(this.traceId==='' || this.traceId===undefined){
+        this.traceId = this.$route.query.traceId
+      }
       getFlowTrace(this.traceId).then(res => {
         let flowListStr = res.data;
         if (flowListStr.length === 0) {
