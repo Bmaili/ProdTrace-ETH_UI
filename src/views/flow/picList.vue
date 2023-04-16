@@ -2,14 +2,14 @@
   <el-descriptions class="margin-top" descriptions="vertical" :column="1" border :label-style="LS">
     <el-descriptions-item>
       <template slot="label">
-        <i class="el-icon-user"></i>
+        <i class="el-icon-cloudy"></i>
         备注
       </template>
       {{ (notes === undefined || notes === "") ? "无" : notes }}
     </el-descriptions-item>
     <el-descriptions-item>
       <template slot="label">
-        <i class="el-icon-user"></i>
+        <i class="el-icon-cloudy"></i>
         辅助验证文件
       </template>
       <ul id="box">
@@ -24,7 +24,7 @@
     </el-descriptions-item>
     <el-descriptions-item>
       <template slot="label">
-        <i class="el-icon-user"></i>
+        <i class="el-icon-cloudy"></i>
         文件SHA256摘要
       </template>
       <p v-for="sha in SHA256List" class="sha256">
@@ -63,7 +63,7 @@ export default {
 };
 </script>
 
-<style>
+<style scoped>
 #box li {
   text-decoration: none; /*去掉前面的圆点*/
   list-style: none;
@@ -74,5 +74,9 @@ export default {
 }
 .sha256{
   margin:4px auto;
+}
+.el-tag{
+  white-space: normal;
+  height:auto;
 }
 </style>

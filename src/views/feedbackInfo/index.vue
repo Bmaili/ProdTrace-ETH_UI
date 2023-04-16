@@ -9,14 +9,14 @@
 <!--          </template>-->
           <el-descriptions-item>
             <template slot="label">
-              <i class="el-icon-user"></i>
+              <i class="el-icon-location-information"></i>
               反馈ID
             </template>
             {{ feedback.feedbackId }}
           </el-descriptions-item>
           <el-descriptions-item>
             <template slot="label">
-              <i class="el-icon-user"></i>
+              <i class="el-icon-location-information"></i>
               满意度
             </template>
             <el-tag size="small"  :type="feedback.eval==='2'?'danger':'success'">{{ evalOptions[Number(feedback.eval)].dictLabel }}
@@ -24,45 +24,45 @@
           </el-descriptions-item>
           <el-descriptions-item>
             <template slot="label">
-              <i class="el-icon-user"></i>
+              <i class="el-icon-location-information"></i>
               反馈人姓名
             </template>
             {{ feedback.name }}
           </el-descriptions-item>
           <el-descriptions-item>
             <template slot="label">
-              <i class="el-icon-user"></i>
+              <i class="el-icon-location-information"></i>
               反馈人电话
             </template>
             {{ feedback.phone }}
           </el-descriptions-item>
           <el-descriptions-item>
             <template slot="label">
-              <i class="el-icon-user"></i>
+              <i class="el-icon-location-information"></i>
               反馈人邮箱
             </template>
             {{ feedback.email }}
           </el-descriptions-item>
           <el-descriptions-item>
             <template slot="label">
-              <i class="el-icon-user"></i>
+              <i class="el-icon-location-information"></i>
               反馈时间
             </template>
             {{ feedback.createTime }}
           </el-descriptions-item>
           <el-descriptions-item>
             <template slot="label">
-              <i class="el-icon-user"></i>
+              <i class="el-icon-location-information"></i>
               反馈人地址
             </template>
             {{ feedback.address }}
           </el-descriptions-item>
         </el-descriptions>
 
-        <el-descriptions class="margin-top" descriptions="vertical" :column="1" border>
+        <el-descriptions class="margin-top" descriptions="vertical" :column="1" border :label-style="LS">
           <el-descriptions-item>
             <template slot="label">
-              <i class="el-icon-user"></i>
+              <i class="el-icon-location-information"></i>
               反馈标题
             </template>
             {{ feedback.title }}
@@ -70,7 +70,7 @@
 
           <el-descriptions-item>
             <template slot="label">
-              <i class="el-icon-user"></i>
+              <i class="el-icon-location-information"></i>
               反馈内容
             </template>
             {{ feedback.info }}
@@ -78,7 +78,7 @@
 
           <el-descriptions-item>
             <template slot="label">
-              <i class="el-icon-user"></i>
+              <i class="el-icon-location-information"></i>
               资料上传
             </template>
             <ul id="box">
@@ -117,7 +117,11 @@ export default {
         dictLabel: "良好",
         dictValue: "1"
       }, {dictLabel: "不满意", dictValue: "2"}],
-      urls: []
+      urls: [],
+      LS: {
+        'text-align': 'center',
+        'width': '275px',
+      }
     };
   },
   created() {

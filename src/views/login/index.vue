@@ -69,6 +69,7 @@
                      size="medium"
                      style="width:49%; background-color: #c9e8c5;border: none"
                      round
+                     @click="help"
           >
             <span>帮 助</span>
           </el-button>
@@ -188,6 +189,9 @@ export default {
   methods: {
     feedback(){
       this.$router.push({name:'userFeedback'}).catch(error => error);
+    },
+    help(){
+      this.$router.push({name:'help'}).catch(error => error);
     },
     handleQuery() {
       this.$router.push({name:'trace',params:{traceId:this.traceId}}).catch(error => error);

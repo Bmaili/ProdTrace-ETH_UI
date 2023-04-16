@@ -6,70 +6,70 @@
         <el-descriptions class="margin-top" title="生产流程记录" :column="2" border>
           <el-descriptions-item>
             <template slot="label">
-              <i class="el-icon-user"></i>
+              <i class="el-icon-cloudy"></i>
               生产商编号
             </template>
             {{ info.生产商编号 }}
           </el-descriptions-item>
           <el-descriptions-item>
             <template slot="label">
-              <i class="el-icon-user"></i>
+              <i class="el-icon-cloudy"></i>
               生产商全称
             </template>
             {{ info.生产商全称 }}
           </el-descriptions-item>
           <el-descriptions-item>
             <template slot="label">
-              <i class="el-icon-user"></i>
+              <i class="el-icon-cloudy"></i>
               操作人
             </template>
             {{ info.操作人 }}
           </el-descriptions-item>
           <el-descriptions-item>
             <template slot="label">
-              <i class="el-icon-user"></i>
+              <i class="el-icon-cloudy"></i>
               联系电话
             </template>
             {{ info.联系电话 }}
           </el-descriptions-item>
           <el-descriptions-item>
             <template slot="label">
-              <i class="el-icon-user"></i>
+              <i class="el-icon-cloudy"></i>
               身份证号
             </template>
             {{ info.身份证号 }}
           </el-descriptions-item>
           <el-descriptions-item>
             <template slot="label">
-              <i class="el-icon-user"></i>
+              <i class="el-icon-cloudy"></i>
               计量单位
             </template>
             {{ info.计量单位 }}
           </el-descriptions-item>
           <el-descriptions-item>
             <template slot="label">
-              <i class="el-icon-user"></i>
+              <i class="el-icon-cloudy"></i>
               数量
             </template>
             {{ info.数量 }}
           </el-descriptions-item>
           <el-descriptions-item>
             <template slot="label">
-              <i class="el-icon-user"></i>
+              <i class="el-icon-cloudy"></i>
               源产地
             </template>
             {{ info.源产地 }}
           </el-descriptions-item>
           <el-descriptions-item>
             <template slot="label">
-              <i class="el-icon-user"></i>
+              <i class="el-icon-cloudy"></i>
               保质期
             </template>
             {{ info.保质期 }}
           </el-descriptions-item>
           <el-descriptions-item>
             <template slot="label">
-              <i class="el-icon-user"></i>
+              <i class="el-icon-cloudy"></i>
               生产时间
             </template>
             {{ info.生产时间 }}

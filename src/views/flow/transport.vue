@@ -6,56 +6,56 @@
         <el-descriptions class="margin-top" title="运输流程记录" :column="2" border>
           <el-descriptions-item>
             <template slot="label">
-              <i class="el-icon-user"></i>
+              <i class="el-icon-cloudy"></i>
               运输商编号
             </template>
             {{ info.运输商编号 }}
           </el-descriptions-item>
           <el-descriptions-item>
             <template slot="label">
-              <i class="el-icon-user"></i>
+              <i class="el-icon-cloudy"></i>
               运输商全称
             </template>
             {{ info.运输商全称 }}
           </el-descriptions-item>
           <el-descriptions-item>
             <template slot="label">
-              <i class="el-icon-user"></i>
+              <i class="el-icon-cloudy"></i>
               操作人
             </template>
             {{ info.操作人 }}
           </el-descriptions-item>
           <el-descriptions-item>
             <template slot="label">
-              <i class="el-icon-user"></i>
+              <i class="el-icon-cloudy"></i>
               联系电话
             </template>
             {{ info.联系电话 }}
           </el-descriptions-item>
           <el-descriptions-item>
             <template slot="label">
-              <i class="el-icon-user"></i>
+              <i class="el-icon-cloudy"></i>
               身份证号
             </template>
             {{ info.身份证号 }}
           </el-descriptions-item>
           <el-descriptions-item>
             <template slot="label">
-              <i class="el-icon-user"></i>
+              <i class="el-icon-cloudy"></i>
               始发地
             </template>
             {{ info.始发地 }}
           </el-descriptions-item>
           <el-descriptions-item>
             <template slot="label">
-              <i class="el-icon-user"></i>
+              <i class="el-icon-cloudy"></i>
               目的地
             </template>
             {{ info.目的地 }}
           </el-descriptions-item>
           <el-descriptions-item>
             <template slot="label">
-              <i class="el-icon-user"></i>
+              <i class="el-icon-cloudy"></i>
               登记时间
             </template>
             {{ info.登记时间 }}

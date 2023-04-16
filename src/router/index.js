@@ -33,7 +33,7 @@ export const constantRoutes = [
                 path: 'flow',
                 component: () => import('@/views/flow'),
                 name: 'flow',
-                meta: {title: '溯源信息', icon: 'dashboard', noCache: true, affix: true}
+                meta: {title: '溯源信息', icon: 'dashboard', noCache: true, affix: true},
             },
             {
                 path: 'queryTrace',
@@ -54,6 +54,12 @@ export const constantRoutes = [
         component: () => import('@/views/tourist/feedback'),
         name: 'userFeedback',
         meta: {title: '反馈', icon: 'dashboard', noCache: true, affix: true}
+    },
+    {
+        path: '/help',
+        component: () => import('@/views/tourist/help'),
+        name: 'help',
+        meta: {title: '帮助', icon: 'dashboard', noCache: true, affix: true}
     },
     {
         path: '/login',

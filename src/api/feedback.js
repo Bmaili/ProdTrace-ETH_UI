@@ -35,3 +35,13 @@ export function getFeedback(feedbackId) {
         params: {feedbackId}
     })
 }
+export function upPic(data){
+    return request({
+        url: '/feedback/upPic',
+        method: 'post',
+        data: data,
+        headers: {
+            'Content-Type': 'multipart/form-data'
+        }
+    })
+}

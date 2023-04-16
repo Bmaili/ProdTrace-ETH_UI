@@ -6,28 +6,28 @@
         <el-descriptions class="margin-top" title="基本信息记录" :column="2" border>
           <el-descriptions-item>
             <template slot="label">
-              <i class="el-icon-user"></i>
+              <i class="el-icon-cloudy"></i>
               溯源码
             </template>
             {{ info.溯源码 }}
           </el-descriptions-item>
           <el-descriptions-item>
             <template slot="label">
-              <i class="el-icon-user"></i>
+              <i class="el-icon-cloudy"></i>
               产品编号
             </template>
             {{ info.产品编号 }}
           </el-descriptions-item>
           <el-descriptions-item>
             <template slot="label">
-              <i class="el-icon-user"></i>
+              <i class="el-icon-cloudy"></i>
               产品名称
             </template>
             {{ info.产品名称 }}
           </el-descriptions-item>
           <el-descriptions-item>
             <template slot="label">
-              <i class="el-icon-user"></i>
+              <i class="el-icon-cloudy"></i>
               产品类别
             </template>
             {{ info.产品类别 }}

@@ -9,14 +9,14 @@
 <!--          </template>-->
           <el-descriptions-item>
             <template slot="label">
-              <i class="el-icon-user"></i>
+              <i class="el-icon-location-information"></i>
               企业编号
             </template>
             {{ dept.deptId }}
           </el-descriptions-item>
           <el-descriptions-item>
             <template slot="label">
-              <i class="el-icon-user"></i>
+              <i class="el-icon-location-information"></i>
               角色
             </template>
             <el-tag size="small">{{ roleOptions[dept.role].dictLabel }}</el-tag>
@@ -24,59 +24,59 @@
           </el-descriptions-item>
           <el-descriptions-item>
             <template slot="label">
-              <i class="el-icon-user"></i>
+              <i class="el-icon-location-information"></i>
               企业全称
             </template>
             {{ dept.deptName }}
           </el-descriptions-item>
           <el-descriptions-item>
             <template slot="label">
-              <i class="el-icon-user"></i>
+              <i class="el-icon-location-information"></i>
               联系人
             </template>
             {{ dept.linkman }}
           </el-descriptions-item>
           <el-descriptions-item>
             <template slot="label">
-              <i class="el-icon-user"></i>
+              <i class="el-icon-location-information"></i>
               简称
             </template>
             {{ dept.shortName }}
           </el-descriptions-item>
           <el-descriptions-item>
             <template slot="label">
-              <i class="el-icon-user"></i>
+              <i class="el-icon-location-information"></i>
               联系电话
             </template>
             {{ dept.linkphone }}
           </el-descriptions-item>
           <el-descriptions-item>
             <template slot="label">
-              <i class="el-icon-user"></i>
+              <i class="el-icon-location-information"></i>
               营业执照号
             </template>
             {{ dept.license }}
           </el-descriptions-item>
           <el-descriptions-item>
             <template slot="label">
-              <i class="el-icon-user"></i>
+              <i class="el-icon-location-information"></i>
               税务登记证号
             </template>
             /
           </el-descriptions-item>
           <el-descriptions-item>
             <template slot="label">
-              <i class="el-icon-office-building"></i>
+              <i class="el-icon-location-information"></i>
               联系地址
             </template>
             {{ dept.address }}
           </el-descriptions-item>
         </el-descriptions>
 
-        <el-descriptions class="margin-top" descriptions="vertical" :column="1" border>
+        <el-descriptions class="margin-top" descriptions="vertical" :column="1" border :label-style="LS">
           <el-descriptions-item>
             <template slot="label">
-              <i class="el-icon-user"></i>
+              <i class="el-icon-location-information"></i>
               资料上传
             </template>
             <ul id="box">
@@ -92,7 +92,7 @@
 
           <el-descriptions-item>
             <template slot="label">
-              <i class="el-icon-user"></i>
+              <i class="el-icon-location-information"></i>
               备注
             </template>
             {{ dept.notes }}
@@ -124,7 +124,11 @@ export default {
       roleOptions: [{dictLabel: "管理员", dictValue: "0"}, {dictLabel: "生产商", dictValue: "1"},
         {dictLabel: "加工商", dictValue: "2"}, {dictLabel: "物流运输", dictValue: "3"},
         {dictLabel: "销售终端", dictValue: "4"}],
-      urls: []
+      urls: [],
+      LS: {
+        'text-align': 'center',
+        'width': '233px',
+      }
     };
   },
   created() {
